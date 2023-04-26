@@ -1,0 +1,102 @@
+<c-card class="mb-4">
+    <c-card-header>
+      <strong>Listes </strong> <small>Avantages</small>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary btn-md" (click)="openLg(content)"><i
+              class="icofont icofont-plus"></i>Ajouter un avantage
+          </button>
+        </div>
+      </div>
+  
+    </c-card-header>
+    <c-card-body>
+      <table cTable>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">typeAvantage </th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rows">
+            <th scope="row">{{row.id}}</th>
+            <td>{{row.typeAvantage}}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-outline-dark"
+                    (click)="openEditLg(contentEdit,row)">Editer</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="openDelete(contentDelete,row)">Supprimer</button>
+            </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </c-card-body>
+  </c-card>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Ajouter un avantage</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form cForm [formGroup]="itemForm" ngNativeValidate>
+        <div class="row p-2">
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="typeAvantage" type="text" formControlName="typeAvantage" />
+            <label cLabel for="floatingInput">typeAvantage</label>
+          </div>
+
+        </div>
+  
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Enregister</button>
+    </div>
+  </ng-template>
+  <ng-template #contentEdit let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Modifier un avantage</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form cForm [formGroup]="itemForm" ngNativeValidate>
+        <div class="row p-2">
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="typeAvantage" type="text" formControlName="typeAvantage" />
+            <label cLabel for="floatingInput">typeAvantage</label>
+          </div>
+
+        </div>
+  
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Modifier</button>
+    </div>
+  </ng-template>
+  <ng-template #contentDelete let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Supprimer un avantage</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+     <p>Voulez vous vraiment supprimer cet avantage?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="delete()">Confimer</button>
+    </div>
+  </ng-template>

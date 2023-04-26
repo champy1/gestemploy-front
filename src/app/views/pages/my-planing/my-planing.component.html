@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="card-header">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary btn-sm" (click)="getPreviousWeek(init_date)">
+                    <svg cIcon class="me-2" name="cilChevronLeft"></svg>
+                </button>
+                <button type="button" class="btn btn-dark btn-sm"><i class="icofont icofont-plus"></i>{{init_date| date:"EEE'\n'd/MM"}} - {{end_date| date:"EEE'\n'd/MM"}}
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" (click)="getNextWeek(end_date)">
+                    <svg cIcon class="me-2" name="cilChevronRight"></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <th class="col" style="width: 20%;">Journée</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of rowModels">
+                    <td>{{row.date_planing| date:"EEE'\n'd/MM"}}</td>
+                    <td> 
+                        <div class="card">
+                            <div class="card-body">
+                                <span class="text-blod">{{row.heure_debut}} - {{row.heure_fin}}</span>
+                        <p>{{row.fonction}}</p>
+                        <p></p>
+                        <p  *ngIf="row.planing_id !=0">
+                            <button title="Detail" (click)="detail(contentedit,row)" class="btn btn-sm btn-outline-success">
+                            <svg cIcon class="me-1" size="sm" name="cilCursor"></svg>
+                        </button>
+                    </p>
+                        </div>
+                    </div>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+</div>
+<ng-template #contentedit let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Detail du planing</h4>
+        <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+     <p>Date planing: {{select_user.date_planing|date:"EEE'\n'd-MM-YYYY"}}</p>
+     <p>Heure de debut: {{select_user.heure_debut}}</p>
+     <p>Heure de fin: {{select_user.heure_fin}}</p>
+     <p>Poste: {{select_user.fonction}}</p>
+    </div>
+ 
+</ng-template>

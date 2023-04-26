@@ -1,0 +1,171 @@
+<c-card class="mb-4">
+    <c-card-header>
+      <strong>Listes </strong> <small>Fonctions</small>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary btn-sm" (click)="openLg(content)"><i
+              class="cil cil-save"></i>Ajouter une fonction
+          </button>
+        </div>
+      </div>
+  
+    </c-card-header>
+    <c-card-body>
+      <table cTable>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">typeFonction </th>
+            <th scope="col">salaireSuppl </th>
+            <th scope="col">heureTravaille</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rows">
+            <th scope="row">{{row.id}}</th>
+            <td>{{row.typeFonction}}</td>
+            <td>{{row.salaireSuppl}}</td>
+            <td>{{row.heureTravaille}}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-outline-success" (click)="openEditLg(contentEdit,row)">Editer</button>
+                <button class="btn btn-sm btn-outline-danger" (click)="openDelete(contentDelete,row)">Supprimer</button>
+                <button class="btn btn-sm btn-outline-dark" (click)="openDepartement(contentDepartement,row.id)">Departements</button>
+                <!--<button class="btn btn-sm btn-outline-success" (click)="openAvantage(contentDepartement,row.id)">Fonctions</button> 
+                --> </div>
+            </td>
+          </tr>
+  
+        </tbody>
+      </table>
+    </c-card-body>
+  </c-card>
+  <ng-template #contentEdit let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Modifier une fonction</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form cForm [formGroup]="itemForm" ngNativeValidate>
+        <div class="p-2">
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="typeFonction" type="text" formControlName="typeFonction" />
+            <label cLabel for="floatingInput">typeFonction</label>
+          </div>
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="salaireSuppl" type="text" formControlName="salaireSuppl" />
+            <label cLabel for="floatingInput">salaireSuppl</label>
+          </div>
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="phone" type="text" formControlName="heureTravaille" />
+            <label cLabel for="floatingInput">heureTravaille</label>
+          </div>
+        
+        </div>
+  
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Modifier</button>
+    </div>
+  </ng-template>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Ajouter une fonction</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form cForm [formGroup]="itemForm" ngNativeValidate>
+        <div class="p-2">
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="typeFonction" type="text" formControlName="typeFonction" />
+            <label cLabel for="floatingInput">typeFonction</label>
+          </div>
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="salaireSuppl" type="text" formControlName="salaireSuppl" />
+            <label cLabel for="floatingInput">salaireSuppl</label>
+          </div>
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="phone" type="text" formControlName="heureTravaille" />
+            <label cLabel for="floatingInput">heureTravaille</label>
+          </div>
+        
+        </div>
+  
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Enregister</button>
+    </div>
+  </ng-template>
+  <ng-template #contentDepartement let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Departements</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+  
+        <div class="row">
+          <div cFormFloating class="mb-3 col-md-8">
+            <select [(ngModel)]="departement" (change)="departementChange(departement)"  aria-label="Floating label select example" cSelect id="floatingSelect">
+          
+        <option *ngFor="let departement of departements" value="{{departement.id}}"> {{departement.nomDepartement}} </option>
+         
+            </select>
+            <label cLabel for="floatingSelect">Departement</label>
+          </div>
+        
+        </div>
+        <div class="row container">
+          <table class="table ">
+            <thead>
+              <th>#</th>
+            <th>Departement</th>
+            <th></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of departementsbyfonction">
+                <td></td>
+                <td>{{row.nomDepartement}}</td>
+                <td><button (click)="removeDepartement(row.id)" class="btn btn-sm btn-danger">
+                  <svg cIcon class="me-2" name="cilTrash"></svg>
+                </button></td>
+              </tr>
+            </tbody>
+            
+          </table>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  
+    </div>
+  </ng-template>
+
+  <ng-template #contentDelete let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Supprimer une fonction</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+     <p>Voulez vous vraiment supprimer cette fonction?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="delete()">Confimer</button>
+    </div>
+  </ng-template>
+  

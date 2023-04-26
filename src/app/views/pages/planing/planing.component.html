@@ -1,0 +1,191 @@
+<div class="card">
+    <div class="card-header">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary btn-sm" (click)="getPreviousWeek(rowHeaders[0])">
+                    <svg cIcon class="me-2" name="cilChevronLeft"></svg>
+                </button>
+                <button type="button" class="btn btn-dark btn-sm"><i class="icofont icofont-plus"></i>{{rowHeaders[0]| date:"EEE'\n'd/M"}} - {{rowHeaders[6]| date:"EEE'\n'd/M"}}
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" (click)="getNextWeek(rowHeaders[6])">
+                    <svg cIcon class="me-2" name="cilChevronRight"></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <th>Employé</th>
+                <th *ngFor="let day of rowHeaders">{{day | date:"EEE'\n'd/M"}}</th>
+                <th>Total heure</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of rowModels">
+                    <td>{{row.user}}</td>
+                    <td *ngFor="let line of row.makeplanings">
+                        <div class="card card_planing" *ngIf="line.planing_id !=0" (click)="editModal(contentedit,line.planing_id)">
+                            <div class="card-header">
+                                
+                                {{line.heure_debut}} - {{line.heure_fin}}
+                                <button *ngIf="checkOldDate(line.date_planing)" title="Modifier le planing" (click)="editModal(contentedit,line.planing_id)" class="btn btn-sm btn-outline-success">
+                                    <svg cIcon class="me-1" size="sm" name="cilSettings"></svg>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <p>{{line.fonction}}</p>
+                                <p></p>
+                                <p></p>
+
+                            </div>
+                        </div>
+                        <div class="text-center" *ngIf="line.planing_id ==0 && checkOldDate(line.date_planing)">
+                            <button (click)="openLg(content,line.date_planing,row)" class="btn btn-sm btn-outline-dark">
+                                <svg cIcon class="me-2" size="sm" name="cilPen"></svg>
+                            </button>
+                        </div>
+
+                    </td>
+                    <td>{{row.total_heure|number}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Ajouter un planing de {{select_user}}</h4>
+        <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+       <form cForm [formGroup]="itemForm" ngNativeValidate>
+         <div class="row">
+          
+              <div class="col-md-8">
+                
+                    <div class="row p-4">
+                        <div cFormFloating class="mb-3">
+                            <select formControlName="type_planing_id" aria-label="Floating label select example" cSelect id="floatingSelect">
+                          
+                        <option *ngFor="let type of typePlanings" value="{{type.id}}"> {{type.nomType}} </option>
+                         
+                            </select>
+                            <label cLabel for="floatingSelect">Type de planing</label>
+                          </div>
+                        <div [cFormFloating]="true" class="mb-3">
+                            <input cFormControl id="floatingInput" placeholder="Date" type="date"
+                                formControlName="date_debut" />
+                            <label cLabel for="floatingInput">Date</label>
+                        </div>
+                        <div [cFormFloating]="true" class="col-md-6 mb-3">
+                            <input cFormControl id="floatingInput" placeholder="salaireSuppl" type="time"
+                                formControlName="heure_debut" />
+                            <label cLabel for="floatingInput">Heure debut</label>
+                        </div>
+                        <div [cFormFloating]="true" class="col-md-6 mb-3">
+                            <input cFormControl id="floatingInput" placeholder="phone" type="time"
+                                formControlName="heure_fin" />
+                            <label cLabel for="floatingInput">heure de fin</label>
+                        </div>
+                        <div cFormFloating class="mb-3">
+                            <select formControlName="fonction_id" aria-label="Floating label select example" cSelect id="floatingSelect">
+                          
+                        <option *ngFor="let fonction of fonctions" value="{{fonction.id}}"> {{fonction.typeFonction}} </option>
+                         
+                            </select>
+                            <label cLabel for="floatingSelect">Fonction</label>
+                          </div>
+
+                    </div>
+
+               
+            </div>
+            <div class="col-md-4">
+                <h5>Options</h5>
+                <div>
+                    <label>Repeter sur</label>
+                    <c-form-check>
+                        <input cFormCheckInput formControlName="flexRadioDefault" formControlName="repeat" type="radio" value="none" />
+                        <label cFormCheckLabel>None</label>
+                      </c-form-check>
+                    <c-form-check>
+                      <input cFormCheckInput formControlName="flexRadioDefault" formControlName="repeat" type="radio" value="semaine" />
+                      <label cFormCheckLabel>La semaine</label>
+                    </c-form-check>
+                    <c-form-check>
+                      <input cFormCheckInput formControlName="flexRadioDefault" formControlName="repeat" type="radio" value="mois" />
+                      <label cFormCheckLabel>Le mois</label>
+                    </c-form-check>
+                  </div>
+            </div> 
+        </div></form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Enregister</button>
+    </div>
+</ng-template>
+<ng-template #contentedit let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Ajouter un planing de {{select_user}}</h4>
+        <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+       <form cForm [formGroup]="itemForm" ngNativeValidate>
+         <div class="row">
+          
+              <div class="col-md-12">
+                
+                    <div class="row p-4">
+                        <div cFormFloating class="mb-3">
+                            <select formControlName="type_planing_id" aria-label="Floating label select example" cSelect id="floatingSelect">
+                          
+                        <option *ngFor="let type of typePlanings" value="{{type.id}}"> {{type.nomType}} </option>
+                         
+                            </select>
+                            <label cLabel for="floatingSelect">Type de planing</label>
+                          </div>
+                        <div [cFormFloating]="true" class="mb-3">
+                            <input cFormControl id="floatingInput" placeholder="Date" type="date"
+                                formControlName="date_debut" />
+                            <label cLabel for="floatingInput">Date</label>
+                        </div>
+                        <div [cFormFloating]="true" class="col-md-6 mb-3">
+                            <input cFormControl id="floatingInput" placeholder="salaireSuppl" type="time"
+                                formControlName="heure_debut" />
+                            <label cLabel for="floatingInput">Heure debut</label>
+                        </div>
+                        <div [cFormFloating]="true" class="col-md-6 mb-3">
+                            <input cFormControl id="floatingInput" placeholder="phone" type="time"
+                                formControlName="heure_fin" />
+                            <label cLabel for="floatingInput">heure de fin</label>
+                        </div>
+                        <div cFormFloating class="mb-3">
+                            <select formControlName="fonction_id" aria-label="Floating label select example" cSelect id="floatingSelect">
+                          
+                        <option *ngFor="let fonction of fonctions" value="{{fonction.id}}"> {{fonction.typeFonction}} </option>
+                         
+                            </select>
+                            <label cLabel for="floatingSelect">Fonction</label>
+                          </div>
+
+                    </div>
+
+               
+            </div>
+         
+        </div></form>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onUpdate()">Enregister</button>
+    </div>
+</ng-template>

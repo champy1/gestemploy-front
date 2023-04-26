@@ -1,0 +1,138 @@
+<c-card class="mb-4">
+    <c-card-body>
+        <div class="row">
+            <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+                <div class="mb-3">
+                    <label cLabel for="floatingSelect">Mois</label>
+                    <select [(ngModel)]="selectmonth" (change)="monthChange(selectmonth)"
+                        aria-label="Floating label select example" cSelect id="floatingSelect">
+                        <option value="1">Janvier</option>
+                        <option value="2">Fevrier</option>
+                        <option value="3">Mars</option>
+                        <option value="4">Avril</option>
+                        <option value="5">Mai</option>
+                        <option value="6">Juin</option>
+                        <option value="7">Juillet</option>
+                        <option value="8">Aout</option>
+                        <option value="9">Septembre</option>
+                        <option value="10">Octobre</option>
+                        <option value="11">Novembre</option>
+                        <option value="12">Decembre</option>
+
+                    </select>
+                   
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="btn-group  float-end">
+                    <button type="button" class="btn btn-primary btn-sm" routerLink="/pages/paiement-make/{{selectmonth}}">Calculer paiement
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <table cTable>
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Employes </th>
+                      <th scope="col">Matricule </th>
+                      <th scope="col">Total heures</th>
+                      <th scope="col">Salaire Brut</th>
+                      <th scope="col">Total prime</th>
+                      <th scope="col">Salaire Net</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of rows">
+                      <th scope="row">{{row.id}}</th>
+                      <td>{{row.user_name}}</td>
+                      <td>{{row.user_matricule}}</td>
+                      <td>{{row.total_jour}}</td>
+                      <td>{{row.total_brut}}</td>
+                      <td>{{row.total_prime}}</td>
+                      <td>{{row.total_net}}</td>
+                      <td>
+                        <div class="btn-group">
+                          <button class="btn btn-sm btn-outline-dark" (click)="detail(content,row)">manager</button>
+                          <button class="btn btn-sm btn-outline-success" (click)="printPDF(row)">print</button>
+                        </div>
+                      </td>
+                    </tr>
+            
+                  </tbody>
+                </table>
+        </div>
+    </c-card-body>
+</c-card>
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Detail Fiche paie</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form cForm  [formGroup]="itemForm" ngNativeValidate>
+        <div class="row">
+          <div [cFormFloating]="false" class="col-md-4 mb-3">
+         <label cLabel for="floatingInput">Total brut</label>
+          <input [readonly]="true" cFormControl id="floatingInput" placeholder="date" type="text" formControlName="total_brut" />
+          
+        </div>
+        <div [cFormFloating]="false" class="col-md-4 mb-3">
+          <label cLabel for="floatingInput">total_impossable</label>
+            <input [readonly]="true" cFormControl id="floatingInput" placeholder="total_impossable" type="text" formControlName="total_impossable" />
+           
+          </div>
+          <div [cFormFloating]="false" class="col-md-4 mb-3">
+            <label cLabel for="floatingInput">total_net</label>
+            <input [readonly]="true" cFormControl id="floatingInput" placeholder="total_net" type="text" formControlName="total_net" />
+            
+          </div>
+          <div class="row">
+            <div [cFormFloating]="false" class="col-md-4 mb-3">
+              <label cLabel for="floatingInput">prime_HS</label>
+               <input  cFormControl id="floatingInput" placeholder="prime_HS" type="text" formControlName="prime_HS" />
+               
+             </div>
+             <div [cFormFloating]="false" class="col-md-4 mb-3">
+              <label cLabel for="floatingInput">suppl_transport</label>
+               <input  cFormControl id="floatingInput" placeholder="suppl_transport" type="text" formControlName="suppl_transport" />
+               
+             </div>
+             <div [cFormFloating]="false" class="col-md-4 mb-3">
+              <label cLabel for="floatingInput">prime_prestation</label>
+               <input  cFormControl id="floatingInput" placeholder="prime_prestation" type="text" formControlName="prime_equipe" />
+               
+             </div>
+          </div>
+          <div class="row">
+            <div [cFormFloating]="false" class="col-md-4 mb-3">
+              <label cLabel for="floatingInput">precomptePro</label>
+               <input  cFormControl id="floatingInput" placeholder="precomptePro" type="text" formControlName="precomptePro" />
+               
+             </div>
+             <div [cFormFloating]="false" class="col-md-4 mb-3">
+              <label cLabel for="floatingInput">cotisationCnss</label>
+               <input  cFormControl id="floatingInput" placeholder="cotisationCnss" type="text" formControlName="cotisationCnss" />
+               
+             </div>
+             <div [cFormFloating]="false" class="col-md-4 mb-3">
+              <label cLabel for="floatingInput">cnss_retenue</label>
+               <input  cFormControl id="floatingInput" placeholder="cnss_retenue" type="text" formControlName="cnss_retenue" />
+               
+             </div>
+          </div>
+        
+        </div>
+        
+        </form>
+  
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Enregister</button>
+    </div>
+  </ng-template>

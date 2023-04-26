@@ -1,0 +1,84 @@
+<c-card class="mb-4">
+    <c-card-header>
+      <strong>Listes </strong> <small>Presence</small>
+      <div class="d-md-flex justify-content-md-end">
+        <div [cFormFloating]="false" class="mb-0">
+          <label cLabel for="floatingInput">Date du jour</label> 
+            <input [(ngModel)]="selectdate" (change)="dateChange(selectdate)" cFormControl id="floatingInput" placeholder="Date du jour" type="date"/>
+          
+          </div>
+        <div class="btn-group">
+        
+        </div>
+      </div>
+  
+    </c-card-header>
+    <c-card-body>
+      <table cTable>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Employes </th>
+            <th scope="col">Matricule </th>
+            <th scope="col">Heure debut</th>
+            <th scope="col">Heure fin</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rows">
+            <th scope="row">{{row.id}}</th>
+            <td>{{row.user_name}}</td>
+            <td>{{row.user_matricule}}</td>
+            <td>{{row.heureDebut}}</td>
+            <td>{{row.heureFin}}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-outline-dark" (click)="openFiche(contentEnter,row)">Entrer</button>
+                <button class="btn btn-sm btn-outline-success" (click)="closeFiche(contentOut,row)">Sortir</button>
+              </div>
+            </td>
+          </tr>
+  
+        </tbody>
+      </table>
+    </c-card-body>
+  </c-card>
+  <ng-template #contentEnter let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Ajouter une heure d'entrer</h4>
+        <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div [cFormFloating]="false" class="mb-3">
+        <label cLabel for="floatingInput">Heure d'arrivée</label>
+        <input cFormControl [(ngModel)]="timeIn" id="floatingInput" placeholder="Heure d'arrivée" type="time"/>
+        
+      </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Enregister</button>
+    </div>
+  </ng-template>
+  <ng-template #contentOut let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Ajouter une heure de sortir</h4>
+        <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div [cFormFloating]="false" class="mb-3">
+         <label cLabel for="floatingInput">Heure de sortir</label>
+        <input cFormControl [(ngModel)]="timeOut" id="floatingInput" placeholder="Heure d'arrivée" type="time"/>
+       
+      </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Enregister</button>
+    </div>
+  </ng-template>

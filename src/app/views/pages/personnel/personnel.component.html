@@ -1,0 +1,269 @@
+<c-card class="mb-4">
+    <c-card-header>
+        <strong>Listes </strong> <small>Personnels</small>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-danger btn-sm" (click)="openLg(content)"><i
+                        class="icofont icofont-plus"></i>Ajouter un personnel
+                </button>
+                <!-- <ng-container *ngTemplateOutlet="staticBackdrop"></ng-container>-->
+            </div>
+        </div>
+
+    </c-card-header>
+    <c-card-body>
+        <table cTable>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Matricule </th>
+                    <th scope="col">Nom </th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Genre</th>
+                    <th scope="col">Telephone</th>
+                    <th scope="col">Departement</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of rows">
+                    <th scope="row">{{row.id}}</th>
+                    <td>{{row.matricule}}</td>
+                    <td>{{row.firstname}}</td>
+                    <td>{{row.lastname}}</td>
+                    <td>{{row.genre}}</td>
+                    <td>{{row.phone}}</td>
+                    <td>{{row.departement}}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-dark"
+                                (click)="openEditLg(contentEdit,row)">Editer</button>
+                                <button class="btn btn-sm btn-outline-danger" (click)="openDelete(contentDelete,row)">Supprimer</button>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </c-card-body>
+</c-card>
+<ng-template #contentEdit let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title">Modifier le personnel</h4>
+            <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div><form cForm [formGroup]="itemForm" ngNativeValidate (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            
+                <div class="row p-2">
+                    <div [cFormFloating]="true" class="mb-3 col-md-6">
+                        <input cFormControl id="floatingInput" placeholder="firstname" type="text"
+                            formControlName="firstname" />
+                        <label cLabel for="floatingInput">Nom</label>
+                    </div>
+                    <div [cFormFloating]="true" class="mb-3 col-md-6">
+                        <input cFormControl id="floatingInput" placeholder="lastname" type="text"
+                            formControlName="lastname" />
+                        <label cLabel for="floatingInput">Prenom</label>
+                    </div>
+                    <div [cFormFloating]="true" class="mb-3 col-md-6">
+                        <input cFormControl id="floatingInput" placeholder="phone" type="text"
+                            formControlName="phone" />
+                        <label cLabel for="floatingInput">Telephone</label>
+                    </div>
+                    <div [cFormFloating]="true" class="mb-3 col-md-6">
+                        <input cFormControl id="floatingInput" placeholder="email" type="email"
+                            formControlName="email" />
+                        <label cLabel for="floatingInput">Email</label>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <div>
+                            <c-form-check>
+                                <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre"
+                                    type="radio" value="M" />
+                                <label cFormCheckLabel>Homme</label>
+                            </c-form-check>
+                            <c-form-check>
+                                <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre"
+                                    type="radio" value="F" />
+                                <label cFormCheckLabel>Femme</label>
+                            </c-form-check>
+                        </div>
+                    </div>
+
+                    <div cFormFloating class="mb-3 col-md-6">
+                        <select formControlName="etatCivil" aria-label="Floating label select example" cSelect
+                            id="floatingSelect">
+
+                            <option value="marie">Marie(é)</option>
+                            <option value="celibataire">Celibataire</option>
+                        </select>
+                        <label cLabel for="floatingSelect">Etat civil</label>
+                    </div>
+                    <div [cFormFloating]="true" class="mb-3 col-md-6">
+                        <input class="form-control" cFormControl id="floatingInput" placeholder="compteIban" type="text"
+                            formControlName="compteIban" />
+                        <label cLabel for="floatingInput">CompteIban</label>
+                        <ng-container class="invalid"
+                        *ngIf="itemForm.get('compteIban').hasError('required') && itemForm.get('compteIban').touched">
+                        compteIban is required</ng-container>
+                    </div>
+                    <div [cFormFloating]="true" class="mb-3 col-md-6">
+                        <input cFormControl id="floatingInput" placeholder="salaireHeure" type="text"
+                            formControlName="salaireFixe" />
+                        <label cLabel for="floatingInput">Salaire heure</label>
+                    </div>
+                    <div cFormFloating class="mb-3">
+                        <select formControlName="fonction_id" aria-label="Floating label select example" cSelect
+                            id="floatingSelect">
+
+                            <option *ngFor="let fonction of fonctions" value="{{fonction.id}}">
+                                {{fonction.typeFonction}} </option>
+
+                        </select>
+                        <label cLabel for="floatingSelect">Fonction</label>
+                    </div>
+                    <div cFormFloating class="mb-3">
+                        <select formControlName="departement_id" aria-label="Floating label select example" cSelect
+                            id="floatingSelect">
+
+                            <option *ngFor="let departement of departements" value="{{departement.id}}">
+                                {{departement.nomDepartement}} </option>
+
+                        </select>
+                        <label cLabel for="floatingSelect">Departement</label>
+                    </div>
+                </div>
+
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+            <button class="btn btn-secondary mr-1  pull-right" type="submit">Enregister</button>
+        </div></form>
+    
+</ng-template>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Ajouter un personnel</h4>
+        <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form cForm [formGroup]="itemForm" ngNativeValidate>
+            <div class="row p-2">
+                <div [cFormFloating]="true" class="mb-3 col-md-6">
+                    <input cFormControl id="floatingInput" placeholder="firstname" type="text"
+                        formControlName="firstname" />
+                    <label cLabel for="floatingInput">Nom</label>
+                </div>
+                <div [cFormFloating]="true" class="mb-3 col-md-6">
+                    <input cFormControl id="floatingInput" placeholder="lastname" type="text"
+                        formControlName="lastname" />
+                    <label cLabel for="floatingInput">Prenom</label>
+                </div>
+                <div [cFormFloating]="true" class="mb-3 col-md-6">
+                    <input cFormControl id="floatingInput" placeholder="phone" type="text" formControlName="phone" />
+                    <label cLabel for="floatingInput">Telephone</label>
+                </div>
+                <div [cFormFloating]="true" class="mb-3 col-md-6">
+                    <input cFormControl id="floatingInput" placeholder="email" type="email" formControlName="email" />
+                    <label cLabel for="floatingInput">Email</label>
+                    <ng-container class="invalid"
+                    *ngIf="itemForm.get('email').hasError('required') && itemForm.get('email').touched">
+                    email is required</ng-container>
+                    <ng-container class="invalid"
+                    *ngIf="itemForm.get('email').hasError('pattern') && itemForm.get('email').touched">
+                    email trop court</ng-container>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <div>
+                        <c-form-check>
+                            <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre"
+                                type="radio" value="M" />
+                            <label cFormCheckLabel>Homme</label>
+                        </c-form-check>
+                        <c-form-check>
+                            <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre"
+                                type="radio" value="F" />
+                            <label cFormCheckLabel>Femme</label>
+                        </c-form-check>
+                    </div>
+                </div>
+
+                <div cFormFloating class="mb-3 col-md-6">
+                    <select formControlName="etatCivil" aria-label="Floating label select example" cSelect
+                        id="floatingSelect">
+
+                        <option value="marie">Marie(é)</option>
+                        <option value="celibataire">Celibataire</option>
+                    </select>
+                    <label cLabel for="floatingSelect">Etat civil</label>
+                </div>
+                
+               <div [cFormFloating]="false" class="mb-3 col-md-6">
+                  <label cLabel for="floatingInput">CompteIban</label> 
+                   <input cFormControl id="floatingInput" placeholder="BExx xxxx xxxx xxxx" type="text"
+                        formControlName="compteIban" />
+                    
+                    <ng-container class="invalid"
+                    *ngIf="itemForm.get('compteIban').hasError('required') && itemForm.get('compteIban').touched">
+                    compteIban is required</ng-container>
+                    <ng-container class="invalid"
+                    *ngIf="itemForm.get('compteIban').hasError('pattern') && itemForm.get('compteIban').touched">
+                    compteIban trop court</ng-container>
+                </div>
+                <div [cFormFloating]="true" class="mb-3 col-md-6">
+                    <input cFormControl id="floatingInput" placeholder="salaireHeure" type="text"
+                        formControlName="salaireFixe" />
+                    <label cLabel for="floatingInput">Salaire heure</label>
+                </div>
+                <div cFormFloating class="mb-3">
+                    <select formControlName="fonction_id" aria-label="Floating label select example" cSelect
+                        id="floatingSelect">
+
+                        <option *ngFor="let fonction of fonctions" value="{{fonction.id}}"> {{fonction.typeFonction}}
+                        </option>
+
+                    </select>
+                    <label cLabel for="floatingSelect">Fonction</label>
+                </div>
+                <div cFormFloating class="mb-3">
+                    <select formControlName="departement_id" aria-label="Floating label select example" cSelect
+                        id="floatingSelect">
+
+                        <option *ngFor="let departement of departements" value="{{departement.id}}">
+                            {{departement.nomDepartement}} </option>
+
+                    </select>
+                    <label cLabel for="floatingSelect">Departement</label>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button class="btn btn-secondary mr-1  pull-right"
+        [disabled]="!itemForm.valid"
+        type="button" (click)="onSubmit()">Enregister</button>
+    </div>
+</ng-template>
+<ng-template #contentDelete let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Supprimer un personnel</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+     <p>Voulez vous vraiment supprimer ce personnel?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="delete()">Confimer</button>
+    </div>
+  </ng-template>
