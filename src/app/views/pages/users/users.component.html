@@ -98,20 +98,20 @@
             </c-form-check>
           </div>
         </div>
-    
+
         <div cFormFloating class="mb-3 col-md-6">
           <select  formControlName="etatCivil" aria-label="Floating label select example" cSelect id="floatingSelect">
-      
+
             <option value="marie">Marie(é)</option>
             <option value="celibataire">Celibataire</option>
           </select>
           <label cLabel for="floatingSelect">Etat civil</label>
         </div>
         <div [cFormFloating]="false" class="mb-3 col-md-6">
-          <label cLabel for="floatingInput">CompteIban</label> 
+          <label cLabel for="floatingInput">CompteIban</label>
            <input cFormControl id="floatingInput" placeholder="BExx xxxx xxxx xxxx" type="text"
                 formControlName="compteIban" />
-            
+
             <ng-container class="invalid"
             *ngIf="itemForm.get('compteIban').hasError('required') && itemForm.get('compteIban').touched">
             compteIban is required</ng-container>
@@ -129,9 +129,9 @@
         </div>
         <div cFormFloating class="mb-3">
           <select formControlName="departement_id" aria-label="Floating label select example" cSelect id="floatingSelect">
-        
+
  <option *ngFor="let departement of departements" value="{{departement.id}}"> {{departement.nomDepartement}} </option>
-       
+
           </select>
           <label cLabel for="floatingSelect">Departement</label>
         </div>
@@ -182,10 +182,10 @@
             </c-form-check>
           </div>
         </div>
-    
+
         <div cFormFloating class="mb-3 col-md-6">
           <select  formControlName="etatCivil" aria-label="Floating label select example" cSelect id="floatingSelect">
-      
+
             <option value="marie">Marie(é)</option>
             <option value="celibataire">Celibataire</option>
           </select>
@@ -205,9 +205,9 @@
         </div>
         <div cFormFloating class="mb-3">
           <select formControlName="departement_id" aria-label="Floating label select example" cSelect id="floatingSelect">
-        
+
  <option *ngFor="let departement of departements" value="{{departement.id}}"> {{departement.nomDepartement}} </option>
-       
+
           </select>
           <label cLabel for="floatingSelect">Departement</label>
         </div>
