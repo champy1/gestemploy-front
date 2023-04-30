@@ -1,0 +1,32 @@
+<c-card class="mb-4">
+    <c-card-header>
+      <strong>Mes </strong> <small>Presences</small>
+  
+    </c-card-header>
+    <c-card-body>
+      <table cTable>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Matricule </th>
+            <th scope="col">Date</th>
+            
+            <th scope="col">Heure debut</th>
+            <th scope="col">Heure fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rows">
+            <th scope="row">{{row.id}}</th>
+           <td>{{row.user_matricule}}</td> 
+           <td>{{row.date_presence}}</td>
+            
+            <td>{{row.heureDebut}}</td>
+            <td>{{row.heureFin}}</td>
+         
+          </tr>
+  
+        </tbody>
+      </table>
+    </c-card-body>
+  </c-card>

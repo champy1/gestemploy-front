@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Role } from 'src/app/core/models/role';
 import { AuthService } from 'src/app/core/service/auth.service';
 
-import { IcustomNavData, navItems, navItemsUSER } from './_nav';
+import { IcustomNavData, navItems, navItemsComptable, navItemsUSER } from './_nav';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +20,8 @@ export class DefaultLayoutComponent {
     const userRole = this.authService.currentUserValue.role;
     if(userRole==Role.User){
        this.navItems = navItemsUSER;
+    }else if(userRole==Role.Comptable){
+      this.navItems = navItemsComptable;
     }else{
       this.navItems = navItems;
     }

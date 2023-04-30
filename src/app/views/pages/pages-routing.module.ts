@@ -6,7 +6,10 @@ import { AvantageComponent } from './avantage/avantage.component';
 import { DepartementComponent } from './departement/departement.component';
 import { FonctionComponent } from './fonction/fonction.component';
 import { HeureSupplComponent } from './heure-suppl/heure-suppl.component';
+import { MyHeuresuppComponent } from './my-heuresupp/my-heuresupp.component';
+import { MyPaiementComponent } from './my-paiement/my-paiement.component';
 import { MyPlaningComponent } from './my-planing/my-planing.component';
+import { MyPresenceComponent } from './my-presence/my-presence.component';
 import { PaiementMakeComponent } from './paiement-make/paiement-make.component';
 import { PaiementComponent } from './paiement/paiement.component';
 import { PersonnelComponent } from './personnel/personnel.component';
@@ -32,6 +35,27 @@ const routes: Routes = [
     component: MyPlaningComponent,
     data: {
       title: 'Mon planing'
+    }
+  },
+  {
+    path: 'my-presence',
+    component: MyPresenceComponent,
+    data: {
+      title: 'Mes presences'
+    }
+  },
+  {
+    path: 'my-paiement',
+    component: MyPaiementComponent,
+    data: {
+      title: 'Mes paiements'
+    }
+  },
+  {
+    path: 'my-heuresuppl',
+    component: MyHeuresuppComponent,
+    data: {
+      title: 'Mes heures supplementaires'
     }
   },
   {

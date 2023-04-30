@@ -22,6 +22,9 @@ import { PresenceComponent } from './presence/presence.component';
 import { PaiementMakeComponent } from './paiement-make/paiement-make.component';
 import { HeureSupplComponent } from './heure-suppl/heure-suppl.component';
 import { PersonnelComponent } from './personnel/personnel.component';
+import { MyPresenceComponent } from './my-presence/my-presence.component';
+import { MyPaiementComponent } from './my-paiement/my-paiement.component';
+import { MyHeuresuppComponent } from './my-heuresupp/my-heuresupp.component';
 
 
 
@@ -40,7 +43,10 @@ import { PersonnelComponent } from './personnel/personnel.component';
     PresenceComponent,
     PaiementMakeComponent,
     HeureSupplComponent,
-    PersonnelComponent
+    PersonnelComponent,
+    MyPresenceComponent,
+    MyPaiementComponent,
+    MyHeuresuppComponent
   ],
   imports: [
     CommonModule,

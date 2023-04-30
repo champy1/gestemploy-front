@@ -19,17 +19,26 @@ export class DatabaseService {
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
   };
-  getCalculVariablebyMonth(month:number,year:number,type:number) {
-    return this.http.get<any>(`${environment.apiUrl}/v1/paiements/calcul/${month}/${year}/${type}`)
+  getCalculVariablebyMonth(month:number,year:number,type:number,user:number) {
+    return this.http.get<any>(`${environment.apiUrl}/v1/paiements/calcul/${month}/${year}/${type}/${user}`)
   }
   getPaiementbyMonth(id:number) {
     return this.http.get<any>(`${environment.apiUrl}/v1/paiements/month/${id}`)
   }
+  getPaiementByUser(id:number) {
+    return this.http.get<any>(`${environment.apiUrl}/v1/paiements/user/${id}`)
+  }
   getPresencebyDate(date:string) {
     return this.http.get<any>(`${environment.apiUrl}/v1/fichepresences/date/${date}`)
   }
+  getPresencsByUser(id:number) {
+    return this.http.get<any>(`${environment.apiUrl}/v1/fichepresences/user/${id}`)
+  }
   getHeuresupplementaires() {
     return this.http.get<any>(`${environment.apiUrl}/v1/heuresupplementaires`)
+  }
+  getHeuresupplementaireByUser(id:number) {
+    return this.http.get<any>(`${environment.apiUrl}/v1/heuresupplementaires/user/${id}`)
   }
   createHeureSuppl(data:any): Observable<any> {
     // @ts-ignore

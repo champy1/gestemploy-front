@@ -1,0 +1,41 @@
+<c-card class="mb-4">
+    <c-card-header>
+        <strong>Mes </strong> <small>Paiements</small>
+    
+      </c-card-header>
+    <c-card-body>
+        <div class="row">
+                <table cTable>
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Matricule </th>
+                      <th scope="col">Total heures</th>
+                      <th scope="col">Salaire Brut</th>
+                      <th scope="col">Total prime</th>
+                      <th scope="col">Salaire Net</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of rows">
+                      <th scope="row">{{row.id}}</th>
+                      <td>{{row.datePaie}}</td>
+                      <td>{{row.user_matricule}}</td>
+                      <td>{{row.total_jour}}</td>
+                      <td>{{row.total_brut}}</td>
+                      <td>{{row.total_prime}}</td>
+                      <td>{{row.total_net}}</td>
+                      <td>
+                        <div class="btn-group">
+                          <button class="btn btn-sm btn-outline-success" (click)="printPDF(row)">print</button>
+                        </div>
+                      </td>
+                    </tr>
+            
+                  </tbody>
+                </table>
+        </div>
+    </c-card-body>
+</c-card>

@@ -1,7 +1,7 @@
 <c-card class="mb-4">
     <c-card-body>
         <c-nav variant="pills">
-
+                     
             <c-nav-item>
               <a [cTabContent]="tabContent3" [routerLink] [tabPaneIdx]="0" cNavLink>
                 <svg cIcon class="me-2" name="cilUser"></svg>
@@ -21,19 +21,19 @@
                     <div class="row p-2">
                       <div [cFormFloating]="false" class="mb-3 col-md-6"> <label cLabel for="floatingInput">Nom</label>
                         <input cFormControl id="floatingInput" placeholder="firstname" type="text" formControlName="firstname" />
-
+                       
                       </div>
                       <div [cFormFloating]="false" class="mb-3 col-md-6"><label cLabel for="floatingInput">Prenom</label>
                         <input cFormControl id="floatingInput" placeholder="lastname" type="text" formControlName="lastname" />
-
+                        
                       </div>
                       <div [cFormFloating]="false" class="mb-3 col-md-6"><label cLabel for="floatingInput">Telephone</label>
                         <input cFormControl id="floatingInput" placeholder="phone" type="text" formControlName="phone" />
-
+                        
                       </div>
                       <div [cFormFloating]="false" class="mb-3 col-md-6"><label cLabel for="floatingInput">Email</label>
                         <input cFormControl id="floatingInput" placeholder="email" type="email" formControlName="email" />
-
+                        
                       </div>
                       <div class="mb-3 col-md-6">
                         <div>
@@ -47,21 +47,21 @@
                           </c-form-check>
                         </div>
                       </div>
-
+                  
                       <div cFormFloating="false" class="mb-3 col-md-6"> <label cLabel for="floatingSelect">Etat civil</label>
                         <select  formControlName="etatCivil" aria-label="Floating label select example" cSelect id="floatingSelect">
-
+                    
                           <option value="marie">Marie(é)</option>
                           <option value="celibataire">Celibataire</option>
                         </select>
-
+                       
                       </div>
                       <div [cFormFloating]="false" class="mb-3 col-md-6">  <label cLabel for="floatingInput">CompteIban</label>
                         <input cFormControl id="floatingInput" placeholder="compteIban" type="text" formControlName="compteIban" />
-
+                      
                       </div>
-
-
+                    
+                     
                     </div>
                     <div class="mt-4">
                         <button type="button" class="btn btn-light">Close</button>
@@ -70,21 +70,21 @@
                   </form>
             </c-tab-pane>
             <c-tab-pane aria-labelledby="docs-code-preview" class="p-3 preview" role="tabpanel">
-
+             
                 <div [cFormFloating]="false" class="mb-3 col-md-6">  <label cLabel for="floatingInput">Ancien mot de passe</label>
                     <input [(ngModel)]="oldpassword" cFormControl id="floatingInput" placeholder="password" type="password"/>
-
+                  
                   </div>
                   <div [cFormFloating]="false" class="mb-3 col-md-6">  <label cLabel for="floatingInput">Nouveau mot de passe</label>
                     <input cFormControl [(ngModel)]="newpassword" id="floatingInput" placeholder="password" type="password"/>
-
+                  
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-light">Close</button>
                     <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="changePassword()">Enregister</button>
                   </div>
             </c-tab-pane>
-
+        
           </c-tab-content>
     </c-card-body>
     </c-card>

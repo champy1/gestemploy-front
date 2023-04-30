@@ -21,9 +21,9 @@ export class UsersComponent  implements OnInit{
       constructor( private modalService: NgbModal,private formBuilder: FormBuilder,
         private route: ActivatedRoute,private toaster: ToastrService,
         private router: Router,private database: DatabaseService){
-
+    
       }
-      ibanPattern = "^BE\d{14}$";
+      ibanPattern = "^[a-z0-9_-]{16,16}$";
       emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   ngOnInit(): void {
     this.itemForm = this.formBuilder.group({

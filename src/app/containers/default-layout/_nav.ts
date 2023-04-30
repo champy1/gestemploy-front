@@ -11,10 +11,35 @@ export const navItems: IcustomNavData[] = [
   
   },
   {
+    name: 'Mes infos',
+    title: true
+  },
+  {
     name: 'Mon planing',
     url: '/pages/my-planing',
     iconComponent: { name: 'cil-JustifyCenter' },
     role:"ALL"
+  },
+  {
+    name: 'Mes paiements',
+    url: '/pages/my-paiement',
+    iconComponent: { name: 'cil-Star' },
+    role:"ALL"
+  },
+  {
+    name: 'Mes presences',
+    url: '/pages/my-presence',
+    iconComponent: { name: 'cil-Tags' },
+    role:"ALL"
+  },
+  {
+    name: 'Mes heures suppl',
+    url: '/pages/my-heuresuppl',
+    iconComponent: { name: 'cil-Task' },
+    role:"ALL"
+  },
+  {
+    divider: true,
   },
   {
     name: 'Comptabilite',
@@ -85,6 +110,76 @@ export const navItems: IcustomNavData[] = [
     iconComponent: { name: 'cil-Options' },
   },
 ];
+export const navItemsComptable: IcustomNavData[] = [
+  {
+    name: 'Dashboard',
+    url: '/dashboard',
+    iconComponent: { name: 'cil-speedometer' },
+    role:"ALL"
+  
+  },
+  {
+    name: 'Mes infos',
+    title: true
+  },
+  {
+    name: 'Mon planing',
+    url: '/pages/my-planing',
+    iconComponent: { name: 'cil-JustifyCenter' },
+    role:"ALL"
+  },
+  {
+    name: 'Mes paiements',
+    url: '/pages/my-paiement',
+    iconComponent: { name: 'cil-Star' },
+    role:"ALL"
+  },
+  {
+    name: 'Mes presences',
+    url: '/pages/my-presence',
+    iconComponent: { name: 'cil-Tags' },
+    role:"ALL"
+  },
+  {
+    name: 'Mes heures supplementaires',
+    url: '/pages/my-heuresuppl',
+    iconComponent: { name: 'cil-Task' },
+    role:"ALL"
+  },
+  {
+    divider: true,
+  },
+  {
+    name: 'Comptabilite',
+    title: true
+  },
+  {
+    name: 'Paiements',
+    url: '/pages/paiement',
+    iconComponent: { name: 'cil-Dollar' },
+    role:"ADMIN"
+  },
+  {
+    name: 'Operations',
+    title: true
+  },
+  {
+    name: 'Fiche presence',
+    url: '/pages/presence',
+    iconComponent: { name: 'cil-Speedometer' },
+  },
+  {
+    name: 'Heure suppl',
+    url: '/pages/heuresuppl',
+    iconComponent: { name: 'cil-ReportSlash' },
+  },
+
+  {
+    name: 'Planings',
+    url: '/pages/planing',
+    iconComponent: { name: 'cil-file' },
+  },
+];
 export const navItemsUSER: IcustomNavData[] = [
   {
     name: 'Dashboard',
@@ -94,9 +189,34 @@ export const navItemsUSER: IcustomNavData[] = [
   
   },
   {
+    name: 'Mes infos',
+    title: true
+  },
+  {
     name: 'Mon planing',
     url: '/pages/my-planing',
     iconComponent: { name: 'cil-JustifyCenter' },
     role:"ALL"
+  },
+  {
+    name: 'Mes paiements',
+    url: '/pages/my-paiement',
+    iconComponent: { name: 'cil-Star' },
+    role:"ALL"
+  },
+  {
+    name: 'Mes presences',
+    url: '/pages/my-presence',
+    iconComponent: { name: 'cil-Tags' },
+    role:"ALL"
+  },
+  {
+    name: 'Mes heures supplementaires',
+    url: '/pages/my-heuresuppl',
+    iconComponent: { name: 'cil-Task' },
+    role:"ALL"
+  },
+  {
+    divider: true,
   },
 ];
