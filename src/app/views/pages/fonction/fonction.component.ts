@@ -23,6 +23,7 @@ export class FonctionComponent  implements OnInit {
   avantages:Avantage[] | undefined;
   selectFonction: null| undefined;
   departement:null| undefined;
+  avantage:null| undefined;
   current_id:number|undefined
   avantagesbyfonction:Avantage[] | undefined;
       // @ts-ignore
@@ -86,8 +87,9 @@ export class FonctionComponent  implements OnInit {
     }
     ); 
   }
-  openAvantage(contentDepartement:any,id:any) {
-    this.modalService.open(contentDepartement, { size: 'lg' });
+  openAvantage(contentAvantage:any,id:any) {
+    this.selectFonction=id
+    this.modalService.open(contentAvantage, { size: 'lg' });
     this.database.getAvantagesByFoction(id).subscribe((res)=>{
       this.avantagesbyfonction=res;
     },(error)=>{
@@ -111,6 +113,24 @@ export class FonctionComponent  implements OnInit {
   }, err => {
     console.log(err);
     this.toaster.error("Ust produite", err.message);
+  });
+  }
+  avantageChange(event:any){
+    console.log(event)
+    this.items.push(event);
+    const values = {
+          'fonction_id':this.selectFonction,
+          'items':this.items,
+     
+  }
+  this.database.createFonctionAvantage(values).subscribe((res: any) => {
+    this.toaster.success("Enregistrement avec success", 'OK');
+    this.database.getAvantagesByFoction(this.selectFonction!).subscribe((res)=>{
+      this.avantagesbyfonction=res;
+    }); 
+  }, err => {
+    console.log(err);
+    this.toaster.error("une erreur s'est produite", err.message);
   });
   }
   onSubmit() {
@@ -138,7 +158,29 @@ export class FonctionComponent  implements OnInit {
   }
     this.database.removeFonctionDepartement(values).subscribe((res: any) => {
       this.toaster.success("Suppression avec success", 'OK');
-     this.modalService.dismissAll();
+      this.database.getDepartementsByFoction(this.selectFonction!).subscribe((res)=>{
+        this.departementsbyfonction=res;
+      }); 
+
+    }, err => {
+      console.log(err);
+      this.toaster.error("Ust produite", err.message);
+     // this.toaster.error(this.translateService.instant('internalServerError'), err.message);
+    });
+  }
+  removeAvantage(event:any) {
+    this.items=[]
+    this.items.push(event);
+    const values = {
+          'fonction_id':this.selectFonction,
+          'items':this.items,
+     
+  }
+    this.database.removeFonctionAvantage(values).subscribe((res: any) => {
+      this.toaster.success("Suppression avec success", 'OK');
+      this.database.getAvantagesByFoction(this.selectFonction!).subscribe((res)=>{
+        this.avantagesbyfonction=res;
+      }); 
 
     }, err => {
       console.log(err);

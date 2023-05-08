@@ -25,13 +25,19 @@
                 <tr *ngFor="let row of rowModels">
                     <td>{{row.user}}</td>
                     <td *ngFor="let line of row.makeplanings">
-                        <div class="card card_planing" *ngIf="line.planing_id !=0" (click)="editModal(contentedit,line.planing_id)">
+                        <div class="card card_planing" *ngIf="line.planing_id !=0">
                             <div class="card-header">
                                 
                                 {{line.heure_debut}} - {{line.heure_fin}}
-                                <button *ngIf="checkOldDate(line.date_planing)" title="Modifier le planing" (click)="editModal(contentedit,line.planing_id)" class="btn btn-sm btn-outline-success">
-                                    <svg cIcon class="me-1" size="sm" name="cilSettings"></svg>
+                                <div class="btn-group">
+                                   <button *ngIf="checkOldDate(line.date_planing)" title="Modifier le planing" (click)="editModal(contentedit,line.planing_id)" class="btn btn-sm btn-outline-success">
+                                    <i class="fa fa-edit"></i>
                                 </button>
+                                <button *ngIf="checkOldDate(line.date_planing)" title="Modifier le planing" (click)="deleteModal(delete,line.planing_id)" class="btn btn-sm btn-outline-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button> 
+                                </div>
+                                
                             </div>
                             <div class="card-body">
                                 <p>{{line.fonction}}</p>
@@ -42,7 +48,8 @@
                         </div>
                         <div class="text-center" *ngIf="line.planing_id ==0 && checkOldDate(line.date_planing)">
                             <button (click)="openLg(content,line.date_planing,row)" class="btn btn-sm btn-outline-dark">
-                                <svg cIcon class="me-2" size="sm" name="cilPen"></svg>
+                                <!-- <svg cIcon class="me-2" size="sm" name="cilPen"></svg>-->
+                                <i class="fa fa-plus"></i>
                             </button>
                         </div>
 
@@ -130,6 +137,7 @@
         <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Enregister</button>
     </div>
 </ng-template>
+
 <ng-template #contentedit let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Ajouter un planing de {{select_user}}</h4>
@@ -187,5 +195,21 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
         <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onUpdate()">Enregister</button>
+    </div>
+</ng-template>
+
+<ng-template #delete let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Supprimer un planing de {{select_user}}</h4>
+        <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+     <p>Vous allez supprimer ce planing definitivement!</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        <button class="btn btn-danger mr-1  pull-right" type="button" (click)="onDelete()">Supprimer</button>
     </div>
 </ng-template>

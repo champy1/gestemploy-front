@@ -16,10 +16,11 @@ export class DefaultHeaderComponent extends HeaderComponent {
   public newMessages = new Array(4)
   public newTasks = new Array(5)
   public newNotifications = new Array(5)
-
+  userImage:any
   constructor(private classToggler: ClassToggleService,private route: ActivatedRoute,
     private router: Router,private authService: AuthService) {
     super();
+     this.userImage = this.authService.currentUserValue.img;
   }
   logout(){
     localStorage.removeItem('currentUser');

@@ -1,9 +1,116 @@
-// Variable overrides
-// Variables
-//
-// Variables should follow the `$component-state-property-size` formula for
-// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+$font-awesome: FontAwesome;
+$primary-color: #e25226;
+$secondary-color: #000;
+$success-color: #51bb25;
+$info-color : #a927f9;
+$warning-color: #f8d62b;
+$danger-color: #dc3545;
+$light-color : #f4f4f4;
+$light-gray : #ecf3fa;
+$light-semi-gray :#efefef;
+$dark-gray: #898989;
+$dark-color : #2c323f;
+$gray-60 :#cccccc;
+$card-body-color : #f9f9fa;
+$transparent-color: transparent;
+$auth-bg-color:#fafafa;
+$light : #fdfeff;
+$semi-dark :#59667a;
+$light-text: #999999;
+$light-background: #d7e2e9;
+$light-font: rgba(27, 49, 85, 0.4);
+$light-semi-font: $semi-dark;
+$light-chartist-grid-color: #f6f9fd;
+$pitch-color: #fe8a7d;
+$color-scarpa: #4c5667;
+$color-fiord: #455a64;
+$black : #000;
+$white:#fff;
 
+$gray-100: #f3f7f9;
+$gray-200: #ebf3f8;
+$gray-300: #dce6ed;
+$gray-400: #ccdfea;
+$gray-500: #a7c1d2;
+$gray-600: #7d9eb5;
+$gray-700: #486f88;
+$gray-800: #343a40;
+$gray-900: #00174c;
+$white:    #fff;
+$light : #fdfeff;
+// Tables settings
+$table-b-margin: 0px;
+$table-heading-color: #2b2b2b;
+$table-row-color: #2b2b2b;
+$table-footer-font-weight: bold;
+$table-inverse-color: $white;
+$table-hover-color: $light;
+$table-padding: 0.75rem;
+$table-xl-padding: 1.25rem 2rem;
+$table-xl-font: 120%;
+$table-lg-padding: .9rem 2rem;
+$table-lg-font: 110%;
+$table-de-padding: .75rem 2rem;
+$table-de-font: 100%;
+$table-sm-padding: .5rem 2rem;
+$table-sm-font: 90%;
+$table-xs-padding: 0.2rem 2rem;
+$table-xs-font: 80%;
+$horizontal-border-color: #f2f4ff;
+$horizontal-padding: .75rem 2rem;
+$table-inverse-bg-color: #292b2c;
+
+
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+// scss-docs-start table-variables
+
+$border-width:                1px;
+$border-color:                #edf4f9;
+$font-weight-lighter:         lighter;
+$font-weight-light:           300;
+$font-weight-normal:          400;
+$font-weight-bold:            600;
+$font-weight-bolder:          700;
+$text-muted:                  $gray-600;
+
+$table-cell-padding-y:        .75rem;
+$table-cell-padding-x:        .75rem;
+$table-cell-padding-y-sm:     .25rem;
+$table-cell-padding-x-sm:     .25rem;
+
+$table-cell-vertical-align:   middle;
+
+$table-color:                 #343a40;
+$table-bg:                    transparent;
+
+$table-th-font-weight:        $font-weight-bolder;
+
+$table-striped-color:         $table-color;
+$table-striped-bg-factor:     .05;
+$table-striped-bg:            rgba($gray-700, $table-striped-bg-factor);
+
+$table-active-color:          $table-color;
+$table-active-bg-factor:      .1;
+$table-active-bg:             rgba($border-color, $table-active-bg-factor);
+
+$table-hover-color:           $table-color;
+$table-hover-bg-factor:       .15;
+$table-hover-bg:              rgba($gray-400, $table-hover-bg-factor);
+
+$table-border-factor:         .1;
+$table-border-width:          $border-width;
+$table-border-color:          $border-color;
+
+$table-striped-order:         odd;
+
+$table-group-separator-color: $table-border-color;
+
+$table-caption-color:         $text-muted;
+
+$table-bg-level:              -9;
 // Color system
 $bg-primary: #3c4b64;
  $white:     #fff;

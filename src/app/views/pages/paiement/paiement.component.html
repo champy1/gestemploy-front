@@ -24,6 +24,12 @@
                 </div>
             </div>
             <div class="col-md-6">
+              <input class="form-control"
+              type="text"
+              style="margin-right: 15px;width:50%;"
+              placeholder="Type to filter the all column..."
+              (keyup)="updateFilter($event)"
+        />
                 <div class="btn-group  float-end">
                     <button type="button" class="btn btn-primary btn-sm" routerLink="/pages/paiement-make/{{selectmonth}}">Calculer paiement
                     </button>
@@ -31,7 +37,60 @@
             </div>
         </div>
         <div class="row">
-                <table cTable>
+          <ngx-datatable  #table
+                            class="bootstrap"
+                                   [rows]="rows"
+                                   [columnMode]="'force'"
+                                   [scrollbarH]=true
+                                   [headerHeight]="50"
+                                   [footerHeight]="50"
+                                   [rowHeight]="'auto'"
+                                   [limit]="4"
+                                   [selectAllRowsOnPage]="false">
+                      
+                        <ngx-datatable-column name="Matricule" prop="user_matricule">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.user_matricule}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Employes" prop="user_name">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.user_name}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Total heure"  prop="total_jour">
+                          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                              {{row.total_jour}}
+                          </ng-template>
+                      </ngx-datatable-column>
+                        <ngx-datatable-column name="Total brut">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.total_brut}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Total prime">
+                          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                              {{row.total_prime}}
+                          </ng-template>
+                      </ngx-datatable-column>
+
+                      <ngx-datatable-column name="total net">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.total_net}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                   
+                        <ngx-datatable-column [sortable]="false" cellClass="allow-overflow" [width]="40">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                              <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-dark" (click)="detail(content,row)">manager</button>
+                                <button class="btn btn-sm btn-outline-success" (click)="printPDF(row)">print</button>
+                              </div>
+
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+             <!--  <table cTable>
                   <thead>
                     <tr>
                       <th scope="col">#</th>
@@ -62,7 +121,7 @@
                     </tr>
             
                   </tbody>
-                </table>
+                </table>--> 
         </div>
     </c-card-body>
 </c-card>

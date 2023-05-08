@@ -39,6 +39,16 @@ export const navItems: IcustomNavData[] = [
     role:"ALL"
   },
   {
+    name: 'Communication',
+    title: true
+  },
+  {
+    name: 'Envoyer les mails',
+    url: '/pages/send-mail',
+    iconComponent: { name: 'cil-EnvelopeOpen' },
+    role:"ALL"
+  },
+  {
     divider: true,
   },
   {

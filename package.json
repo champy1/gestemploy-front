@@ -28,6 +28,7 @@
     "@coreui/icons-angular": "~4.3.17",
     "@coreui/utils": "^2.0.1",
     "@ng-bootstrap/ng-bootstrap": "^14.1.0",
+    "@swimlane/ngx-datatable": "^20.1.0",
     "chart.js": "^3.9.1",
     "file-saver": "^2.0.5",
     "ngx-bootstrap": "^10.2.0",

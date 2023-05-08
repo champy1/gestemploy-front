@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { ToastrService } from 'ngx-toastr';
 import { Departement } from 'src/app/core/models/departement';
 import { User } from 'src/app/core/models/user';
@@ -14,7 +15,12 @@ import { DatabaseService } from 'src/app/core/service/database.service';
 })
 export class UsersComponent  implements OnInit{
   rows:User[] | undefined;
+  temp:User[] | undefined;
   current_id:number|undefined
+  imageSrc: any = '';
+  public selected :any = [];
+  // @ts-ignore
+  @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
   departements:Departement[] | undefined;
       // @ts-ignore
       itemForm: FormGroup;
@@ -25,7 +31,7 @@ export class UsersComponent  implements OnInit{
       }
       ibanPattern = "^[a-z0-9_-]{16,16}$";
       emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-  ngOnInit(): void {
+     ngOnInit(): void {
     this.itemForm = this.formBuilder.group({
       password: ["12345", Validators.required],
       username: ["username", Validators.nullValidator],
@@ -40,14 +46,36 @@ export class UsersComponent  implements OnInit{
      role: ["", Validators.required],
       departement_id: ["", Validators.required],
       id: [null, Validators.nullValidator],
+      imageFile: ['', [Validators.required]],
       departement:[null, Validators.nullValidator]
     });
     this.database.getUsers().subscribe((res)=>{
       this.rows=res;
+      this.temp=res;
     },(error)=>{
 
     }
     );
+  }
+    updateFilter(event:any) {
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp_ = this.temp!.filter(function (d) {
+      return d.firstname!.toLowerCase().indexOf(val) !== -1||
+       d.matricule!.toLowerCase().indexOf(val) !== -1 || d.lastname!.toLowerCase().indexOf(val) !== -1
+          !val;
+    });
+//console.log(this.temp)
+    // update the rows
+    this.rows = temp_;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
+  // @ts-ignore
+  onSelect({ selected }) {
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...selected);
   }
   openLg(content:any) {
     this.modalService.open(content, { size: 'lg' });
@@ -59,6 +87,8 @@ export class UsersComponent  implements OnInit{
     );
   }
   openEditLg(content: any,row:any) {
+    //this.onFileSelect(row.imageFile);
+    this.imageSrc = row.imageFile;
     this.itemForm=this.formBuilder.group({
       username: row.username,
       firstname: row.firstname,
@@ -72,7 +102,8 @@ export class UsersComponent  implements OnInit{
       role: row.role,
       departement_id: row.departement_id,
       id: row.id,
-      departement: row.departement
+      departement: row.departement,
+      imageFile:row.imageFile
     })
     this.modalService.open(content, { size: 'lg' });
     this.database.getDepartements().subscribe((res) => {
@@ -83,7 +114,7 @@ export class UsersComponent  implements OnInit{
     );
   }
   onSubmit() {
-
+    this.itemForm.value.imageFile = this.imageSrc;
     console.log(this.itemForm.value)
     this.database.createUser(this.itemForm.value).subscribe((res: any) => {
       this.toaster.success("Enregistrement avec success", 'OK');
@@ -116,4 +147,28 @@ export class UsersComponent  implements OnInit{
      // this.toaster.error(this.translateService.instant('internalServerError'), err.message);
     });
   }
+  onFileSelect(event:any) {
+    const file = event.target.files[0];
+    let status = event.target.files.length > 0;
+    if (status === true){
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            this.imageSrc = reader.result;
+           // this.fileType=file.type;
+        };
+    }
+}
+onImageSelect(event:any) {
+  const file = event.target.files[0];
+  let status = event.target.files.length > 0;
+  if (status === true){
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+          this.imageSrc = reader.result;
+         // this.fileType=file.type;
+      };
+  }
+}
 }

@@ -81,7 +81,7 @@ export class AuthService {
       token: this.token,
       role: user.role,
       id: user.id,
-      img: user.photoURL || 'assets/dashboeard/boy-2.png',
+      img: user.imageFile || 'assets/dashboeard/boy-2.png',
       username: undefined,
       phone: undefined,
       matricule: undefined,

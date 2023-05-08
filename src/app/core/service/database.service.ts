@@ -112,6 +112,10 @@ export class DatabaseService {
     // @ts-ignore
     return this.http.post<any>(`${environment.apiUrl}/v1/fonctions`, data);
   }
+  sendMail(data:any): Observable<any> {
+    // @ts-ignore
+    return this.http.post<any>(`${environment.apiUrl}/v1/users/sendmail`, data);
+  }
   createFonctionDepartement(data:any): Observable<any> {
     // @ts-ignore
     return this.http.post<any>(`${environment.apiUrl}/v1/fonctions/adddepartement`, data);
@@ -150,7 +154,9 @@ export class DatabaseService {
   deleteFonction(id:number) {
     return this.http.delete<any>(`${environment.apiUrl}/v1/fonctions/${id}`)
   }
-  
+  deletePlaningByID(id:number) {
+    return this.http.delete<any>(`${environment.apiUrl}/v1/planings/${id}`)
+  }
   deleteDepartement(id:number) {
     return this.http.delete<any>(`${environment.apiUrl}/v1/departements/${id}`)
   }

@@ -25,6 +25,9 @@ import { PersonnelComponent } from './personnel/personnel.component';
 import { MyPresenceComponent } from './my-presence/my-presence.component';
 import { MyPaiementComponent } from './my-paiement/my-paiement.component';
 import { MyHeuresuppComponent } from './my-heuresupp/my-heuresupp.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { SendMailComponent } from './send-mail/send-mail.component';
+import { SendSmsComponent } from './send-sms/send-sms.component';
 
 
 
@@ -46,11 +49,14 @@ import { MyHeuresuppComponent } from './my-heuresupp/my-heuresupp.component';
     PersonnelComponent,
     MyPresenceComponent,
     MyPaiementComponent,
-    MyHeuresuppComponent
+    MyHeuresuppComponent,
+    SendMailComponent,
+    SendSmsComponent
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
+    NgxDatatableModule,
     TableModule,
     ButtonModule,
     CardModule,

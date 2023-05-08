@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -8,6 +8,7 @@ import { DatabaseService } from 'src/app/core/service/database.service';
 import { DownloadService } from 'src/app/core/service/download';
 import { saveAs } from 'file-saver';
 import * as FileSaver from 'file-saver';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 @Component({
   selector: 'app-paiement',
   templateUrl: './paiement.component.html',
@@ -16,6 +17,9 @@ import * as FileSaver from 'file-saver';
 export class PaiementComponent implements OnInit {
   selectmonth!: number;
   rows: Paiement[] = [];
+  temp: Paiement[] | undefined;
+      // @ts-ignore
+    @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
   // @ts-ignore
   itemForm: FormGroup;
   constructor(private modalService: NgbModal, private formBuilder: FormBuilder,
@@ -47,6 +51,7 @@ export class PaiementComponent implements OnInit {
     this.selectmonth = new Date().getMonth() + 1;
     this.database.getPaiementbyMonth(this.selectmonth).subscribe((res) => {
       this.rows = res;
+      this.temp=res;
     }, (error) => {
 
     }
@@ -87,7 +92,30 @@ export class PaiementComponent implements OnInit {
       this.rows = res;
     }
     );
-
   }
-  onSubmit() { }
+  updateFilter(event:any) {
+    const val = event.target.value.toLowerCase();
+
+    // filter our data
+    const temp_ = this.temp!.filter(function (d) {
+      return d.user_name!.toLowerCase().indexOf(val) !== -1||
+       d.user_matricule!.toLowerCase().indexOf(val) !== -1
+          !val;
+    });
+//console.log(this.temp)
+    // update the rows
+    this.rows = temp_;
+    // Whenever the filter changes, always go back to the first page
+    this.table.offset = 0;
+  }
+  onSubmit() { 
+    this.database.createPaiement(this.itemForm.value).subscribe((res: any) => {
+      this.toaster.success("Enregistrement avec success", 'OK');
+     this.modalService.dismissAll();
+  
+    }, err => {
+      console.log(err);
+      this.toaster.error("Ust produite", err.message);
+    });
+  }
 }

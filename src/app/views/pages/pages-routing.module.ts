@@ -17,6 +17,7 @@ import { PlaningListComponent } from './planing-list/planing-list.component';
 import { PlaningComponent } from './planing/planing.component';
 import { PresenceComponent } from './presence/presence.component';
 import { ProfilComponent } from './profil/profil.component';
+import { SendMailComponent } from './send-mail/send-mail.component';
 import { TypePlaningComponent } from './type-planing/type-planing.component';
 import { UsersComponent } from './users/users.component';
 
@@ -56,6 +57,13 @@ const routes: Routes = [
     component: MyHeuresuppComponent,
     data: {
       title: 'Mes heures supplementaires'
+    }
+  },
+  {
+    path: 'send-mail',
+    component: SendMailComponent,
+    data: {
+      title: 'Envoyer mails'
     }
   },
   {

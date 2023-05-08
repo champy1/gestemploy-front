@@ -33,8 +33,8 @@
                 <button class="btn btn-sm btn-outline-success" (click)="openEditLg(contentEdit,row)">Editer</button>
                 <button class="btn btn-sm btn-outline-danger" (click)="openDelete(contentDelete,row)">Supprimer</button>
                 <button class="btn btn-sm btn-outline-dark" (click)="openDepartement(contentDepartement,row.id)">Departements</button>
-                <!--<button class="btn btn-sm btn-outline-success" (click)="openAvantage(contentDepartement,row.id)">Fonctions</button> 
-                --> </div>
+                <button class="btn btn-sm btn-outline-success" (click)="openAvantage(contentAvantage,row.id)">Avantages</button> 
+                 </div>
             </td>
           </tr>
   
@@ -152,7 +152,52 @@
   
     </div>
   </ng-template>
+  <ng-template #contentAvantage let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Avantages</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+  
+        <div class="row">
+          <div cFormFloating class="mb-3 col-md-8">
+            <select [(ngModel)]="avantage" (change)="avantageChange(avantage)"  aria-label="Floating label select example" cSelect id="floatingSelect">
+          
+        <option *ngFor="let avantage of avantages" value="{{avantage.id}}"> {{avantage.typeAvantage}} </option>
+         
+            </select>
+            <label cLabel for="floatingSelect">Avantage</label>
+          </div>
+        
+        </div>
+        <div class="row container">
+          <table class="table ">
+            <thead>
+              <th>#</th>
+            <th>Avantage</th>
+            <th></th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of avantagesbyfonction">
+                <td></td>
+                <td>{{row.typeAvantage}}</td>
+                <td><button (click)="removeAvantage(row.id)" class="btn btn-sm btn-danger">
+                  <svg cIcon class="me-2" name="cilTrash"></svg>
+                </button></td>
+              </tr>
+            </tbody>
+            
+          </table>
+        </div>
 
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  
+    </div>
+  </ng-template>
   <ng-template #contentDelete let-modal>
     <div class="modal-header">
       <h4 class="modal-title">Supprimer une fonction</h4>

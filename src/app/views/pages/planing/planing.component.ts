@@ -23,6 +23,7 @@ export class PlaningComponent   implements OnInit {
    select_user=""
    select_date=""
    select_user_id=0;
+   select_planing_id=0;
    planing: MakePlaning = new MakePlaning;
    rowModels:PlaningModel[]=[];
    typePlanings:TypePlaning[]|undefined;
@@ -121,6 +122,12 @@ export class PlaningComponent   implements OnInit {
     this.modalService.open(content, { size: 'lg' });
 
   }
+  deleteModal(content:any,row:any) {
+    this.modalService.dismissAll();
+    this.select_planing_id=row
+    this.modalService.open(content, { size: 'md' });
+
+  }
   getNextWeek(date:any){
     this.rowHeaders=[];
     this.rowModels=[]
@@ -190,6 +197,19 @@ export class PlaningComponent   implements OnInit {
       console.log(err);
       this.toaster.error("Ust produite", err.message);
      // this.toaster.error(this.translateService.instant('internalServerError'), err.message);
+    });
+  }
+  onDelete() {
+    let currentDate_=this.pipe.transform(this.currentDate,'yyyy-MM-dd')
+    this.database.deletePlaningByID(this.select_planing_id).subscribe((res: any) => {
+      this.toaster.success("Suppression avec success", 'OK');
+     this.modalService.dismissAll();
+     this.database.getPlaningModels(currentDate_!).subscribe((res)=>{
+      this.rowModels=res;
+    })
+    }, err => {
+      console.log(err);
+      this.toaster.error("Une erreur s'est produite", err.message);
     });
   }
 }

@@ -1,20 +1,97 @@
-<c-card class="mb-4">
-  <c-card-header>
+<div  class="card mb-4">
+ 
+    <div class="card-header mb-4">
     <strong>Liste </strong> <small>Employés</small>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-
+      <input class="form-control"
+      type="text"
+      style="margin-right: 15px;width:50%;"
+      placeholder="Type to filter the all column..."
+      (keyup)="updateFilter($event)"
+/>
       <div class="btn-group">
         <button type="button" class="btn btn-danger btn-sm" (click)="openLg(content)"><i
-            class="icofont icofont-plus"></i>Ajouter un employé
+            class="fa fa-plus"></i> Ajouter un employé
         </button>
         <!-- <ng-container *ngTemplateOutlet="staticBackdrop"></ng-container>-->
       </div>
     </div>
-
-  </c-card-header>
-  <c-card-body>
+  </div>
+    <div class="card-body">
     <div class="table-responsive">
-    <table cTable>
+      <ngx-datatable  #table
+                            class="bootstrap"
+                                   [rows]="rows"
+                                   [columnMode]="'force'"
+                                   [scrollbarH]=true
+                                   [headerHeight]="50"
+                                   [footerHeight]="50"
+                                   [rowHeight]="'auto'"
+                                   [limit]="4"
+                                   [selected]="selected"
+                                   [selectAllRowsOnPage]="false"
+                                   (select)='onSelect($event)'>
+                       <!-- <ngx-datatable-column [width]="40"
+                                              [sortable]="false"
+                                              [canAutoResize]="false"
+                                              [draggable]="false"
+                                              [resizeable]="false"
+                                              [headerCheckboxable]="true"
+                                              [checkboxable]="true">
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Drapeau">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                <img class="img-fluid w-90 rounded" [src]="row.flag" alt="avater">
+                            </ng-template>
+                        </ngx-datatable-column>-->
+                        <ngx-datatable-column name="Matricule">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.matricule}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Nom"  prop="firstname">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.firstname}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Prenom"  prop="lastname">
+                          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                              {{row.lastname}}
+                          </ng-template>
+                      </ngx-datatable-column>
+                        <ngx-datatable-column name="Genre">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                {{row.genre}}
+                            </ng-template>
+                        </ngx-datatable-column>
+                        <ngx-datatable-column name="Email">
+                          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                              {{row.email}}
+                          </ng-template>
+                      </ngx-datatable-column>
+
+                      <ngx-datatable-column name="Departement">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            {{row.departement}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Role">
+                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                          {{row.role}}
+                      </ng-template>
+                  </ngx-datatable-column>
+                        <ngx-datatable-column [sortable]="false" cellClass="allow-overflow" [width]="40">
+                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                              <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-dark"
+                                    (click)="openEditLg(contentEdit,row)">Editer</button>
+                                    <button class="btn btn-sm btn-outline-danger" (click)="openDelete(contentDelete,row)">Supprimer</button>
+                            </div>
+
+                            </ng-template>
+                        </ngx-datatable-column>
+                    </ngx-datatable>
+   <!-- <table cTable>
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -50,10 +127,10 @@
         </tr>
 
       </tbody>
-    </table>
+    </table> -->
   </div>
-  </c-card-body>
-</c-card>
+</div>
+</div>
 <ng-template #contentEdit let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Modifier un employé</h4>
@@ -76,6 +153,7 @@
           <input cFormControl id="floatingInput" placeholder="phone" type="text" formControlName="phone" />
           <label cLabel for="floatingInput">Telephone</label>
         </div>
+
         <div [cFormFloating]="true" class="mb-3 col-md-6">
           <input cFormControl id="floatingInput" placeholder="email" type="email" formControlName="email" />
           <label cLabel for="floatingInput">Email</label>
@@ -127,7 +205,7 @@
           </select>
           <label cLabel for="floatingSelect">ROLE</label>
         </div>
-        <div cFormFloating class="mb-3">
+        <div cFormFloating class="mb-3 col-md-12">
           <select formControlName="departement_id" aria-label="Floating label select example" cSelect id="floatingSelect">
         
  <option *ngFor="let departement of departements" value="{{departement.id}}"> {{departement.nomDepartement}} </option>
@@ -135,6 +213,14 @@
           </select>
           <label cLabel for="floatingSelect">Departement</label>
         </div>
+        <div class="col-md-6">
+          <label for="con-phone">Image </label>
+          <div class="mb-3">
+              <img class="img-fluid w-50 rounded" [src]="imageSrc" alt="">
+          </div>
+          <input accept="image/png, image/jpeg" (change)="onFileSelect($event)" formControlName="imageFile" class="form-control" id="con-phone" type="file"
+                 autocomplete="off">
+      </div>
       </div>
 
     </form>
@@ -211,6 +297,14 @@
           </select>
           <label cLabel for="floatingSelect">Departement</label>
         </div>
+        <div class="col-md-6">
+          <label for="con-phone">Image </label>
+          <div class="mb-3">
+              <img class="img-fluid w-50 rounded" [src]="imageSrc" alt="">
+          </div>
+          <input accept="image/png, image/jpeg" (change)="onFileSelect($event)" formControlName="imageFile" class="form-control" id="con-phone" type="file"
+                 autocomplete="off">
+      </div>
       </div>
 
     </form>
