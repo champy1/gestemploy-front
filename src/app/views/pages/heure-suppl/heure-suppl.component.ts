@@ -44,6 +44,19 @@ export class HeureSupplComponent  implements OnInit{
       this.users=res;
     }  );
   }
+  changeDate(){
+   console.log( this.itemForm.value.dateHeureSuppl)
+   this.database.getPlageByDate(Number(this.itemForm.value.user_id),this.itemForm.value.dateHeureSuppl).subscribe((res: any) => {
+    this.itemForm.value.heureDebut=res.heureDebut
+    this.itemForm.patchValue({
+      heureDebut:res.heureFin
+    })
+  }, err => {
+    console.log(err);
+    this.toaster.error("une erreur s'est produte", "il n'a pas de plage a cette date pour ce employe");
+   // this.toaster.error(this.translateService.instant('internalServerError'), err.message);
+  });
+  }
   onSubmit() {
 
     console.log(this.itemForm.value)

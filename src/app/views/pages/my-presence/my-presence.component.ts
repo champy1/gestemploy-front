@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Absence } from 'src/app/core/models/absence';
 import { Presence } from 'src/app/core/models/presence';
 import { DatabaseService } from 'src/app/core/service/database.service';
 
@@ -13,7 +14,7 @@ import { DatabaseService } from 'src/app/core/service/database.service';
   styleUrls: ['./my-presence.component.css']
 })
 export class MyPresenceComponent implements OnInit {
-  rows: Presence[] = [];
+  rows: Absence[] = [];
   currentUser: any;
   selectdate:string|undefined;
   selectrow!:Presence;
@@ -29,7 +30,7 @@ export class MyPresenceComponent implements OnInit {
   }
   ngOnInit(): void {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser')!);
-    this.database.getPresencsByUser(this.currentUser.id).subscribe((res)=>{
+    this.database.getMyAbsences(this.currentUser.id).subscribe((res)=>{
       this.rows=res;
     },(error)=>{
 

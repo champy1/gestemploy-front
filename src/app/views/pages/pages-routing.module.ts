@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guard/auth.guard';
 import { Role } from 'src/app/core/models/role';
+import { AbsenceComponent } from './absence/absence.component';
 import { AvantageComponent } from './avantage/avantage.component';
 import { DepartementComponent } from './departement/departement.component';
 import { FonctionComponent } from './fonction/fonction.component';
@@ -14,6 +15,7 @@ import { PaiementMakeComponent } from './paiement-make/paiement-make.component';
 import { PaiementComponent } from './paiement/paiement.component';
 import { PersonnelComponent } from './personnel/personnel.component';
 import { PlaningListComponent } from './planing-list/planing-list.component';
+import { PlaningMonthComponent } from './planing-month/planing-month.component';
 import { PlaningComponent } from './planing/planing.component';
 import { PresenceComponent } from './presence/presence.component';
 import { ProfilComponent } from './profil/profil.component';
@@ -39,10 +41,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'my-presence',
+    path: 'my-absence',
     component: MyPresenceComponent,
     data: {
-      title: 'Mes presences'
+      title: 'Mes absences'
     }
   },
   {
@@ -76,6 +78,15 @@ const routes: Routes = [
     }
   },
   {
+    path: 'absence',
+    canActivate: [AuthGuard],
+    component: AbsenceComponent,
+    data: {
+      title: 'Absences',
+      role: [Role.Admin,Role.Comptable],
+    }
+  },
+  {
     path: 'heuresuppl',
     canActivate: [AuthGuard],
     component: HeureSupplComponent,
@@ -85,11 +96,11 @@ const routes: Routes = [
     }
   },
   {
-    path: 'presence',
+    path: 'plage-horaire',
     canActivate: [AuthGuard],
     component: PresenceComponent,
     data: {
-      title: 'presences',
+      title: 'Plage horaire',
       role: [Role.Admin,Role.Comptable],
     }
   },
@@ -97,6 +108,15 @@ const routes: Routes = [
     path: 'planing',
     canActivate: [AuthGuard],
     component: PlaningComponent,
+    data: {
+      title: 'Planings',
+      role: [Role.Admin,Role.Comptable],
+    }
+  },
+  {
+    path: 'planing-month',
+    canActivate: [AuthGuard],
+    component: PlaningMonthComponent,
     data: {
       title: 'Planings',
       role: [Role.Admin,Role.Comptable],

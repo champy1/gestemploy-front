@@ -7,40 +7,17 @@
                     <svg cIcon class="me-2" name="cilChevronLeft"></svg>
                 </button>
                 <button type="button" class="btn btn-dark btn-sm"><i class="icofont icofont-plus"></i>{{rowHeaders[0]|
-                    date:"EEE'\n'd/M"}} - {{rowHeaders[6]| date:"EEE'\n'd/M"}}
+                    date:"EEE'\n'd/M"}} - {{rowHeaders[rowHeaders.length-1]| date:"EEE'\n'd/M"}}
                 </button>
-                <button type="button" class="btn btn-secondary btn-sm" (click)="getNextWeek(rowHeaders[6])">
+                <button type="button" class="btn btn-secondary btn-sm" (click)="getNextWeek(rowHeaders[rowHeaders.length-1])">
                     <svg cIcon class="me-2" name="cilChevronRight"></svg>
                 </button>
             </div>
         </div>
     </div>
     <div class="card-body">
-        <!--  <table class="table table-bordered">
-            <thead>
-                <th>Employé</th>
-                <th>Type de planing</th> 
-                <th>Date debut</th> 
-                <th>Date fin</th> 
-                <th>Action</th> 
-            </thead>
-            <tbody>
-                <tr *ngFor="let row of rowModels">
-                    <td>{{row.user_name}}</td>
-                    <td>{{row.type_planing_string}} <span *ngIf="row.type_planing==1">({{row.heure_debut}})</span></td>
-                    <td>{{row.date_debut}}</td>
-                    <td>{{row.date_fin}}</td>
-                    <td><div class="btn-group">
-                        <button class="btn btn-sm btn-outline-success" *ngIf="row.type_planing==1">changer les heures</button>
-                        <button (click)="openLg(content,row)" class="btn btn-sm btn-outline-dark">
-                        fonction
-                        </button>
-                    </div>
-                        
-                    </td>
-                </tr>
-            </tbody>
-        </table>-->
+
+       <div class="table-responsive">
         <table class="table table-bordered">
             <thead>
                 <th>Employé</th>
@@ -74,6 +51,8 @@
                                 <p></p>
                                 <p></p>
                                 <span *ngIf="line.ispointe" class="badge bg-success">Pointé<i></i></span>
+                            
+
                             </div>
                         </div>
                         <div class="text-center bg-primary"
@@ -86,7 +65,7 @@
                 </tr>
             </tbody>
         </table>
-
+</div>
     </div>
 </div>
 <ng-template #content let-modal>

@@ -91,12 +91,21 @@ export class DatabaseService {
   getAvantagesByFoction(id:number) {
     return this.http.get<any>(`${environment.apiUrl}/v1/avantages/fonction/${id}`)
   }
+  getPlageByDate(id:number,date:string) {
+    return this.http.get<any>(`${environment.apiUrl}/v1/fichepresences/plage/${date}/${id}`)
+  }
+  getMyAbsences(id:number) {
+    return this.http.get<any>(`${environment.apiUrl}/v1/absences/my/${id}`)
+  }
   createAvantage(data:any): Observable<any> {
     // @ts-ignore
     return this.http.post<any>(`${environment.apiUrl}/v1/avantages`, data);
   }
   getTypeplaning() {
     return this.http.get<any>(`${environment.apiUrl}/v1/typeplanings`)
+  }
+  getAbsences() {
+    return this.http.get<any>(`${environment.apiUrl}/v1/absences`)
   }
   createTypeplaning(data:any): Observable<any> {
     // @ts-ignore
@@ -135,6 +144,12 @@ export class DatabaseService {
   getPlaningModels(date:string) {
     return this.http.get<any>(`${environment.apiUrl}/v1/planings/models/${date}`)
   }
+  getPlaningModelMonths(date:string) {
+    return this.http.get<any>(`${environment.apiUrl}/v1/planings/models/month/${date}`)
+  }
+  getPlaningAll() {
+    return this.http.get<any>(`${environment.apiUrl}/v1/planings`)
+  }
   getPlaningByUserID(id:number,date:string) {
     return this.http.get<any>(`${environment.apiUrl}/v1/planings/byuser/${id}/${date}`)
   }
@@ -144,12 +159,22 @@ export class DatabaseService {
   getPlaningHeaders(date:string) {
     return this.http.get<any>(`${environment.apiUrl}/v1/planings/headers/${date}`)
   }
+  getPlaningHeaderMonths(date:string) {
+    return this.http.get<any>(`${environment.apiUrl}/v1/planings/headers/month/${date}`)
+  }
   createPlaning(data:any): Observable<any> {
     // @ts-ignore
     return this.http.post<any>(`${environment.apiUrl}/v1/planings`, data);
   }
   deleteTypeplaning(id:number) {
     return this.http.delete<any>(`${environment.apiUrl}/v1/typeplanings/${id}`)
+  }
+  createAbsence(data:any): Observable<any> {
+    // @ts-ignore
+    return this.http.post<any>(`${environment.apiUrl}/v1/absences`, data);
+  }
+  deleteAbsence(id:number) {
+    return this.http.delete<any>(`${environment.apiUrl}/v1/absences/${id}`)
   }
   deleteFonction(id:number) {
     return this.http.delete<any>(`${environment.apiUrl}/v1/fonctions/${id}`)

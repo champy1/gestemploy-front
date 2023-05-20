@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { ToastrService } from 'ngx-toastr';
 import { Departement } from 'src/app/core/models/departement';
+import { Fonction } from 'src/app/core/models/fonction';
 import { User } from 'src/app/core/models/user';
 import { DatabaseService } from 'src/app/core/service/database.service';
 
@@ -17,17 +18,20 @@ export class UsersComponent  implements OnInit{
   rows:User[] | undefined;
   temp:User[] | undefined;
   current_id:number|undefined
+  checkTypeplaning=false
   imageSrc: any = '';
   public selected :any = [];
+  public dayworks :any=[];
   // @ts-ignore
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
   departements:Departement[] | undefined;
+  fonctions:Fonction[]|undefined;
       // @ts-ignore
       itemForm: FormGroup;
       constructor( private modalService: NgbModal,private formBuilder: FormBuilder,
         private route: ActivatedRoute,private toaster: ToastrService,
         private router: Router,private database: DatabaseService){
-    
+        
       }
       ibanPattern = "^[a-z0-9_-]{16,16}$";
       emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
@@ -45,10 +49,15 @@ export class UsersComponent  implements OnInit{
       email: ["", Validators.required,Validators.pattern(this.emailPattern)],
      role: ["", Validators.required],
       departement_id: ["", Validators.required],
+      fonction_id: ["", Validators.required],
       id: [null, Validators.nullValidator],
       imageFile: ['', [Validators.required]],
-      departement:[null, Validators.nullValidator]
+      departement:[null, Validators.nullValidator],
+      typeplaning:[null, Validators.nullValidator],
+      dayworks:[null, Validators.nullValidator],
     });
+
+   
     this.database.getUsers().subscribe((res)=>{
       this.rows=res;
       this.temp=res;
@@ -78,6 +87,8 @@ export class UsersComponent  implements OnInit{
     this.selected.push(...selected);
   }
   openLg(content:any) {
+    this.itemForm.reset();
+    this.imageSrc=null
     this.modalService.open(content, { size: 'lg' });
     this.database.getDepartements().subscribe((res)=>{
       this.departements=res;
@@ -86,9 +97,44 @@ export class UsersComponent  implements OnInit{
     }
     );
   }
+  changeDepartement(departement:Event){
+    this.database.getFonctionByDepartement(parseInt((departement.target as HTMLInputElement).value)).subscribe((res)=>{
+      this.fonctions=res;
+    });
+  }
+  changeTypePlaning(departement:Event){
+  console.log( this.itemForm.value.typeplaning)
+  if(this.itemForm.value.typeplaning==2){
+    this.checkTypeplaning=true
+  }else{
+    this.checkTypeplaning=false
+  }
+  }
+  clickDay(event:Event){
+    // @ts-ignore
+    if(event.target!.checked!){
+     
+      this.dayworks.push((event.target as HTMLInputElement).value)
+      console.log(this.dayworks)
+    }else{
+
+    }
+    
+  }
   openEditLg(content: any,row:any) {
+    this.itemForm.reset();
     //this.onFileSelect(row.imageFile);
+    this.database.getFonctionByDepartement(parseInt(row.departement_id)).subscribe((res)=>{
+      this.fonctions=res;
+    });
     this.imageSrc = row.imageFile;
+    if(row.typeplaning==2){
+      this.checkTypeplaning=true
+      this.dayworks=row.dayworks
+    }else{
+      this.checkTypeplaning=false
+      this.dayworks=[]
+    }
     this.itemForm=this.formBuilder.group({
       username: row.username,
       firstname: row.firstname,
@@ -101,9 +147,12 @@ export class UsersComponent  implements OnInit{
       email: row.email,
       role: row.role,
       departement_id: row.departement_id,
+      fonction_id: row.fonction_id,
       id: row.id,
       departement: row.departement,
-      imageFile:row.imageFile
+      typeplaning:row.typeplaning,
+      imageFile:[],
+      dayworks:[]
     })
     this.modalService.open(content, { size: 'lg' });
     this.database.getDepartements().subscribe((res) => {
@@ -112,16 +161,32 @@ export class UsersComponent  implements OnInit{
 
     }
     );
+    console.log(this.dayworks)
   }
   onSubmit() {
-    this.itemForm.value.imageFile = this.imageSrc;
+    
+    this.itemForm.value.dayworks = this.dayworks;
     console.log(this.itemForm.value)
     this.database.createUser(this.itemForm.value).subscribe((res: any) => {
+      this.database.getUsers().subscribe((res)=>{
+        this.rows=res;
+      })
+      this.itemForm.reset();
+      this.modalService.dismissAll();
+ /*     this.itemFormPlaning.value.user_id=res.id
+    console.log(this.itemFormPlaning.value)
+     this.database.createPlaning(this.itemFormPlaning.value).subscribe((res: any) => {
       this.toaster.success("Enregistrement avec success", 'OK');
+      this.database.getUsers().subscribe((res)=>{
+        this.rows=res;
+      })
      this.modalService.dismissAll();
-     this.database.getUsers().subscribe((res)=>{
-      this.rows=res;
-    })
+    }, err => {
+      console.log(err);
+      this.toaster.error("Ust produite", err.message);
+    }); */
+  
+  
 
     }, err => {
       console.log(err);
@@ -158,6 +223,7 @@ export class UsersComponent  implements OnInit{
            // this.fileType=file.type;
         };
     }
+    this.itemForm.value.imageFile = this.imageSrc;
 }
 onImageSelect(event:any) {
   const file = event.target.files[0];

@@ -1,37 +1,24 @@
-<div  class="card mb-4">
- 
-    <div class="card-header mb-4">
+<div class="card mb-4">
+
+  <div class="card-header mb-4">
     <strong>Liste </strong> <small>Employés</small>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <input class="form-control"
-      type="text"
-      style="margin-right: 15px;width:50%;"
-      placeholder="Type to filter the all column..."
-      (keyup)="updateFilter($event)"
-/>
+      <input class="form-control" type="text" style="margin-right: 15px;width:50%;"
+        placeholder="Type to filter the all column..." (keyup)="updateFilter($event)" />
       <div class="btn-group">
-        <button type="button" class="btn btn-danger btn-sm" (click)="openLg(content)"><i
-            class="fa fa-plus"></i> Ajouter un employé
+        <button type="button" class="btn btn-danger btn-sm" (click)="openLg(content)"><i class="fa fa-plus"></i> Ajouter
+          un employé
         </button>
         <!-- <ng-container *ngTemplateOutlet="staticBackdrop"></ng-container>-->
       </div>
     </div>
   </div>
-    <div class="card-body">
+  <div class="card-body">
     <div class="table-responsive">
-      <ngx-datatable  #table
-                            class="bootstrap"
-                                   [rows]="rows"
-                                   [columnMode]="'force'"
-                                   [scrollbarH]=true
-                                   [headerHeight]="50"
-                                   [footerHeight]="50"
-                                   [rowHeight]="'auto'"
-                                   [limit]="4"
-                                   [selected]="selected"
-                                   [selectAllRowsOnPage]="false"
-                                   (select)='onSelect($event)'>
-                       <!-- <ngx-datatable-column [width]="40"
+      <ngx-datatable #table class="bootstrap" [rows]="rows" [columnMode]="'force'" [scrollbarH]=true [headerHeight]="50"
+        [footerHeight]="50" [rowHeight]="'auto'" [limit]="4" [selected]="selected" [selectAllRowsOnPage]="false"
+        (select)='onSelect($event)'>
+        <!-- <ngx-datatable-column [width]="40"
                                               [sortable]="false"
                                               [canAutoResize]="false"
                                               [draggable]="false"
@@ -44,54 +31,53 @@
                                 <img class="img-fluid w-90 rounded" [src]="row.flag" alt="avater">
                             </ng-template>
                         </ngx-datatable-column>-->
-                        <ngx-datatable-column name="Matricule">
-                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                                {{row.matricule}}
-                            </ng-template>
-                        </ngx-datatable-column>
-                        <ngx-datatable-column name="Nom"  prop="firstname">
-                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                                {{row.firstname}}
-                            </ng-template>
-                        </ngx-datatable-column>
-                        <ngx-datatable-column name="Prenom"  prop="lastname">
-                          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                              {{row.lastname}}
-                          </ng-template>
-                      </ngx-datatable-column>
-                        <ngx-datatable-column name="Genre">
-                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                                {{row.genre}}
-                            </ng-template>
-                        </ngx-datatable-column>
-                        <ngx-datatable-column name="Email">
-                          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                              {{row.email}}
-                          </ng-template>
-                      </ngx-datatable-column>
+        <ngx-datatable-column name="Matricule">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{row.matricule}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Nom" prop="firstname">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{row.firstname}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Prenom" prop="lastname">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{row.lastname}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Genre">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{row.genre}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Email">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{row.email}}
+          </ng-template>
+        </ngx-datatable-column>
 
-                      <ngx-datatable-column name="Departement">
-                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                            {{row.departement}}
-                        </ng-template>
-                    </ngx-datatable-column>
-                    <ngx-datatable-column name="Role">
-                      <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                          {{row.role}}
-                      </ng-template>
-                  </ngx-datatable-column>
-                        <ngx-datatable-column [sortable]="false" cellClass="allow-overflow" [width]="40">
-                            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                              <div class="btn-group">
-                                <button class="btn btn-sm btn-outline-dark"
-                                    (click)="openEditLg(contentEdit,row)">Editer</button>
-                                    <button class="btn btn-sm btn-outline-danger" (click)="openDelete(contentDelete,row)">Supprimer</button>
-                            </div>
+        <ngx-datatable-column name="Departement">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{row.departement}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Role">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{row.role}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column [sortable]="false" cellClass="allow-overflow" [width]="40">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <div class="btn-group">
+              <button class="btn btn-sm btn-outline-dark" (click)="openEditLg(contentEdit,row)">Editer</button>
+              <button class="btn btn-sm btn-outline-danger" (click)="openDelete(contentDelete,row)">Supprimer</button>
+            </div>
 
-                            </ng-template>
-                        </ngx-datatable-column>
-                    </ngx-datatable>
-   <!-- <table cTable>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+      <!-- <table cTable>
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -128,8 +114,8 @@
 
       </tbody>
     </table> -->
+    </div>
   </div>
-</div>
 </div>
 <ng-template #contentEdit let-modal>
   <div class="modal-header">
@@ -158,76 +144,167 @@
           <input cFormControl id="floatingInput" placeholder="email" type="email" formControlName="email" />
           <label cLabel for="floatingInput">Email</label>
           <ng-container class="invalid"
-          *ngIf="itemForm.get('email').hasError('required') && itemForm.get('email').touched">
-          email is required</ng-container>
+            *ngIf="itemForm.get('email')!.hasError('required') && itemForm.get('email')!.touched">
+            email is required</ng-container>
           <ng-container class="invalid"
-          *ngIf="itemForm.get('email').hasError('pattern') && itemForm.get('email').touched">
-          email trop court</ng-container>
+            *ngIf="itemForm!.get('email')!.hasError('pattern') && itemForm.get('email')!.touched">
+            email trop court</ng-container>
         </div>
         <div class="mb-3 col-md-6">
           <div>
             <c-form-check>
-              <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre" type="radio" value="M" />
+              <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre" type="radio"
+                value="M" />
               <label cFormCheckLabel>Homme</label>
             </c-form-check>
             <c-form-check>
-              <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre" type="radio" value="F" />
+              <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre" type="radio"
+                value="F" />
               <label cFormCheckLabel>Femme</label>
             </c-form-check>
           </div>
         </div>
-    
+
         <div cFormFloating class="mb-3 col-md-6">
-          <select  formControlName="etatCivil" aria-label="Floating label select example" cSelect id="floatingSelect">
-      
+          <select formControlName="etatCivil" aria-label="Floating label select example" cSelect id="floatingSelect">
+
             <option value="marie">Marie(é)</option>
             <option value="celibataire">Celibataire</option>
           </select>
           <label cLabel for="floatingSelect">Etat civil</label>
         </div>
         <div [cFormFloating]="false" class="mb-3 col-md-6">
-          <label cLabel for="floatingInput">CompteIban</label> 
-           <input cFormControl id="floatingInput" placeholder="BExx xxxx xxxx xxxx" type="text"
-                formControlName="compteIban" />
-            
-            <ng-container class="invalid"
-            *ngIf="itemForm.get('compteIban').hasError('required') && itemForm.get('compteIban').touched">
+          <label cLabel for="floatingInput">CompteIban</label>
+          <input cFormControl id="floatingInput" placeholder="BExx xxxx xxxx xxxx" type="text"
+            formControlName="compteIban" />
+
+          <ng-container class="invalid"
+            *ngIf="itemForm!.get('compteIban')!.hasError('required') && itemForm.get('compteIban')!.touched">
             compteIban is required</ng-container>
-            <ng-container class="invalid"
-            *ngIf="itemForm.get('compteIban').hasError('pattern') && itemForm.get('compteIban').touched">
+          <ng-container class="invalid"
+            *ngIf="itemForm!.get('compteIban')!.hasError('pattern') && itemForm.get('compteIban')!.touched">
             compteIban trop court</ng-container>
         </div>
         <div cFormFloating class="mb-3 col-md-6">
-          <select  formControlName="role" aria-label="Floating label select example" cSelect id="floatingSelect_role">
+          <select formControlName="role" aria-label="Floating label select example" cSelect id="floatingSelect_role">
             <option value="ROLE_USER">ROLE_USER</option>
             <option value="ROLE_COMPTABLE">ROLE_COMPTABLE</option>
             <option value="ROLE_ADMIN">ROLE_ADMIN</option>
           </select>
           <label cLabel for="floatingSelect">ROLE</label>
         </div>
-        <div cFormFloating class="mb-3 col-md-12">
-          <select formControlName="departement_id" aria-label="Floating label select example" cSelect id="floatingSelect">
-        
- <option *ngFor="let departement of departements" value="{{departement.id}}"> {{departement.nomDepartement}} </option>
-       
+        <div cFormFloating class="mb-3 col-md-6">
+          <select formControlName="typeplaning" aria-label="Floating label select example" cSelect
+            id="floatingSelect">
+            <option value="0"> Temps-plein
+            </option>
+            <option value="1"> Mi-Temps
+            </option>
+            <option value="2"> Etudiant
+            </option>
+          </select>
+          <label cLabel for="floatingSelect">Type de planing</label>
+        </div>
+        <div cFormFloating class="mb-3 col-md-6">
+          <select (change)="changeDepartement($event)" formControlName="departement_id"
+            aria-label="Floating label select example" cSelect id="floatingSelect">
+
+            <option *ngFor="let departement of departements" value="{{departement.id}}"> {{departement.nomDepartement}}
+            </option>
+
           </select>
           <label cLabel for="floatingSelect">Departement</label>
+        </div>
+        <div cFormFloating class="mb-3 col-md-6">
+          <select formControlName="fonction_id" aria-label="Floating label select example" cSelect
+            id="floatingSelect">
+
+            <option *ngFor="let fonction of fonctions" value="{{fonction.id}}"> {{fonction.typeFonction}}
+            </option>
+
+          </select>
+          <label cLabel for="floatingSelect">Fonctions</label>
         </div>
         <div class="col-md-6">
           <label for="con-phone">Image </label>
           <div class="mb-3">
-              <img class="img-fluid w-50 rounded" [src]="imageSrc" alt="">
+            <img class="img-fluid w-50 rounded" [src]="imageSrc" alt="">
           </div>
-          <input accept="image/png, image/jpeg" (change)="onFileSelect($event)" formControlName="imageFile" class="form-control" id="con-phone" type="file"
-                 autocomplete="off">
-      </div>
+          <input accept="image/png, image/jpeg" (change)="onFileSelect($event)" formControlName="imageFile"
+            class="form-control" id="con-phone" type="file" autocomplete="off">
+        </div>
       </div>
 
     </form>
+   
+    <div class="row mt-3" *ngIf="checkTypeplaning">
+  
+      <h5>Jours à travailler</h5>
+    
+      <div class="col-md-3">
+        <c-form-check>
+          <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+          value="1" checked *ngIf="dayworks.indexOf(1)!=-1"/>
+          <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+          value="1" *ngIf="dayworks.indexOf(1)==-1"/>
+          <label cFormCheckLabel>Lundi</label>
+        </c-form-check>
+      </div>
+      <div class="col-md-3">
+        <c-form-check>
+          <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+            value="2" checked *ngIf="dayworks.indexOf(2)!=-1"/>
+            <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+            value="2" *ngIf="dayworks.indexOf(2)!=1"/>
+          <label cFormCheckLabel>Mardi</label>
+        </c-form-check>
+      </div>
+      <div class="col-md-3">
+        <c-form-check>
+          <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+          value="3" checked *ngIf="dayworks.indexOf(3)!=-1"/>
+          <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+          value="3" *ngIf="dayworks.indexOf(3)==-1"/>
+          <label cFormCheckLabel>Mercredi</label>
+        </c-form-check>
+      </div>
+      <div class="col-md-3">
+        <c-form-check>
+          <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+            value="4" checked *ngIf="dayworks.indexOf(4)!=-1"/>
+            <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+            value="4" *ngIf="dayworks.indexOf(4)==-1"/>
+          <label cFormCheckLabel>Jeudi</label>
+        </c-form-check>
+      </div>
+      <div class="col-md-3">
+        <c-form-check>
+          <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+            value="5" checked *ngIf="dayworks.indexOf(5)!=-1"/>
+            <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+            value="5" *ngIf="dayworks.indexOf(5)==-1"/>
+          <label cFormCheckLabel>Vendredi</label>
+        </c-form-check>
+      </div>
+      <div class="col-md-3">
+        <c-form-check>
+          <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+            value="6" />
+          <label cFormCheckLabel>Samedi</label>
+        </c-form-check>
+      </div>
+      <div class="col-md-3">
+        <c-form-check>
+          <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+            value="7" />
+          <label cFormCheckLabel>Dimanche</label>
+        </c-form-check>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-    <button class="btn btn-secondary mr-1  pull-right" [disabled]="!itemForm.valid" type="button" (click)="onSubmit()">Enregister</button>
+    <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Enregister</button>
   </div>
 </ng-template>
 <ng-template #content let-modal>
@@ -255,23 +332,31 @@
         <div [cFormFloating]="true" class="mb-3 col-md-6">
           <input cFormControl id="floatingInput" placeholder="email" type="email" formControlName="email" />
           <label cLabel for="floatingInput">Email</label>
+          <ng-container class="invalid"
+            *ngIf="itemForm.get('email')!.hasError('required') && itemForm.get('email')!.touched">
+            email is required</ng-container>
+          <ng-container class="invalid"
+            *ngIf="itemForm!.get('email')!.hasError('pattern') && itemForm.get('email')!.touched">
+            email trop court</ng-container>
         </div>
         <div class="mb-3 col-md-6">
           <div>
             <c-form-check>
-              <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre" type="radio" value="M" />
+              <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre" type="radio"
+                value="M" />
               <label cFormCheckLabel>Homme</label>
             </c-form-check>
             <c-form-check>
-              <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre" type="radio" value="F" />
+              <input cFormCheckInput formControlName="flexRadioDefault" formControlName="genre" type="radio"
+                value="F" />
               <label cFormCheckLabel>Femme</label>
             </c-form-check>
           </div>
         </div>
-    
+
         <div cFormFloating class="mb-3 col-md-6">
-          <select  formControlName="etatCivil" aria-label="Floating label select example" cSelect id="floatingSelect">
-      
+          <select formControlName="etatCivil" aria-label="Floating label select example" cSelect id="floatingSelect">
+
             <option value="marie">Marie(é)</option>
             <option value="celibataire">Celibataire</option>
           </select>
@@ -280,38 +365,121 @@
         <div [cFormFloating]="true" class="mb-3 col-md-6">
           <input cFormControl id="floatingInput" placeholder="compteIban" type="text" formControlName="compteIban" />
           <label cLabel for="floatingInput">CompteIban</label>
+          <ng-container class="invalid"
+            *ngIf="itemForm!.get('compteIban')!.hasError('required') && itemForm.get('compteIban')!.touched">
+            compteIban is required</ng-container>
+          <ng-container class="invalid"
+            *ngIf="itemForm!.get('compteIban')!.hasError('pattern') && itemForm.get('compteIban')!.touched">
+            compteIban trop court</ng-container>
         </div>
         <div cFormFloating class="mb-3 col-md-6">
-          <select  formControlName="role" aria-label="Floating label select example" cSelect id="floatingSelect_role">
+          <select formControlName="role" aria-label="Floating label select example" cSelect id="floatingSelect_role">
             <option value="ROLE_USER">ROLE_USER</option>
             <option value="ROLE_COMPTABLE">ROLE_COMPTABLE</option>
             <option value="ROLE_ADMIN">ROLE_ADMIN</option>
           </select>
           <label cLabel for="floatingSelect">ROLE</label>
         </div>
-        <div cFormFloating class="mb-3">
-          <select formControlName="departement_id" aria-label="Floating label select example" cSelect id="floatingSelect">
-        
- <option *ngFor="let departement of departements" value="{{departement.id}}"> {{departement.nomDepartement}} </option>
-       
+        <div cFormFloating class="mb-3 col-md-6">
+          <select formControlName="typeplaning"  (change)="changeTypePlaning($event)" aria-label="Floating label select example" cSelect
+            id="floatingSelect">
+            <option value="0"> Temps-plein
+            </option>
+            <option value="1"> Mi-Temps
+            </option>
+            <option value="2"> Etudiant
+            </option>
+          </select>
+          <label cLabel for="floatingSelect">Type de planing</label>
+        </div>
+        <div cFormFloating class="mb-3 col-md-6">
+          <select formControlName="departement_id" (change)="changeDepartement($event)" aria-label="Floating label select example" cSelect
+            id="floatingSelect">
+
+            <option *ngFor="let departement of departements" value="{{departement.id}}"> {{departement.nomDepartement}}
+            </option>
+
           </select>
           <label cLabel for="floatingSelect">Departement</label>
+        </div>
+        <div cFormFloating class="mb-3 col-md-6">
+          <select formControlName="fonction_id" aria-label="Floating label select example" cSelect
+            id="floatingSelect">
+            <option>Choisir le fonction</option>
+            <option *ngFor="let fonction of fonctions" value="{{fonction.id}}"> {{fonction.typeFonction}}
+            </option>
+
+          </select>
+          <label cLabel for="floatingSelect">Fonctions</label>
         </div>
         <div class="col-md-6">
           <label for="con-phone">Image </label>
           <div class="mb-3">
-              <img class="img-fluid w-50 rounded" [src]="imageSrc" alt="">
+            <img class="img-fluid w-50 rounded" [src]="imageSrc" alt="">
           </div>
-          <input accept="image/png, image/jpeg" (change)="onFileSelect($event)" formControlName="imageFile" class="form-control" id="con-phone" type="file"
-                 autocomplete="off">
+          <input accept="image/png, image/jpeg" (change)="onFileSelect($event)" formControlName="imageFile"
+            class="form-control" id="con-phone" type="file" autocomplete="off">
+        </div>
       </div>
-      </div>
-
     </form>
-  </div>
+
+    <div class="row mt-3" *ngIf="checkTypeplaning">
+  
+        <h5>Jours à travailler</h5>
+        <div class="col-md-3">
+          <c-form-check>
+            <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+              value="1" checked/>
+            <label cFormCheckLabel>Lundi</label>
+          </c-form-check>
+        </div>
+        <div class="col-md-3">
+          <c-form-check>
+            <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+              value="2" />
+            <label cFormCheckLabel>Mardi</label>
+          </c-form-check>
+        </div>
+        <div class="col-md-3">
+          <c-form-check>
+            <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+            value="3"  />
+            <label cFormCheckLabel>Mercredi</label>
+          </c-form-check>
+        </div>
+        <div class="col-md-3">
+          <c-form-check>
+            <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+              value="4" />
+            <label cFormCheckLabel>Jeudi</label>
+          </c-form-check>
+        </div>
+        <div class="col-md-3">
+          <c-form-check>
+            <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+              value="5" />
+            <label cFormCheckLabel>Vendredi</label>
+          </c-form-check>
+        </div>
+        <div class="col-md-3">
+          <c-form-check>
+            <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+              value="6" />
+            <label cFormCheckLabel>Samedi</label>
+          </c-form-check>
+        </div>
+        <div class="col-md-3">
+          <c-form-check>
+            <input cFormCheckInput (click)="clickDay($event)" type="checkbox"
+              value="7" />
+            <label cFormCheckLabel>Dimanche</label>
+          </c-form-check>
+        </div>
+      </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
     <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Enregister</button>
+  </div>
   </div>
 </ng-template>
 <ng-template #contentDelete let-modal>
@@ -322,7 +490,7 @@
     </button>
   </div>
   <div class="modal-body">
-   <p>Voulez vous vraiment supprimer ce employé?</p>
+    <p>Voulez vous vraiment supprimer ce employé?</p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>

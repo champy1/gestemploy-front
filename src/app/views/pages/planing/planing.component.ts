@@ -40,8 +40,10 @@ export class PlaningComponent   implements OnInit {
         fonction_id: ["", Validators.required],
         type_planing_id: ["", Validators.required],
         date_debut: ["", Validators.required],
-        heure_debut: [null, Validators.required],
-        heure_fin: [null, Validators.required],
+        date_fin: ["", Validators.required],
+        type_planing: ["", Validators.required],
+/*         heure_debut: [null, Validators.required],
+        heure_fin: [null, Validators.required], */
         repeat: ["none", Validators.required],
         user_id: [null, Validators.required],
         id: [null, Validators.required],
@@ -51,7 +53,11 @@ export class PlaningComponent   implements OnInit {
     
     let date_current=this.currentDate.getFullYear()+'-'+this.currentDate.getMonth()+'-'+this.currentDate.getDate();
     let currentDate_=this.pipe.transform(this.currentDate,'yyyy-MM-dd')
-    this.database.getPlaningHeaders(currentDate_!).subscribe((res)=>{
+/*     this.database.getPlaningAll().subscribe((res)=>{
+      this.rowModels=res;
+    } 
+    );*/
+     this.database.getPlaningHeaders(currentDate_!).subscribe((res)=>{
       this.rowHeaders=res;
     },(error)=>{
 
@@ -62,7 +68,7 @@ export class PlaningComponent   implements OnInit {
     },(error)=>{
 
     }
-    );
+    ); 
   }
    public getWeekDays(startingDate: Date): Date[] {
     const dateList: Date[] = [];
@@ -75,23 +81,23 @@ export class PlaningComponent   implements OnInit {
   }
   openLg(content:any,date:any,row:any) {
     console.log(row.user);
-    this.select_date=date;
     this.select_user=row.user;
     this.select_user_id=row.user_id;
-    this.itemForm.value.date_planing=date
-    this.itemForm.patchValue({
+    this.itemForm.value.user_id=row.user_id
+   this.itemForm.patchValue({
       'date_debut':date,
       'user_id':row.user_id
     })
     this.database.getTypeplaning().subscribe((res)=>{
       this.typePlanings=res;
-    });
+    }); 
     this.database.getFonctionByDepartement(row.departement_id).subscribe((res)=>{
       this.fonctions=res;
     });
     this.modalService.open(content, { size: 'lg' });
 
   }
+
   editModal(content:any,row:any) {
     console.log(row.user);
    
@@ -102,6 +108,7 @@ export class PlaningComponent   implements OnInit {
     this.select_user_id=res.user_id!;
     this.itemForm.patchValue({
       'date_debut':res.date_debut,
+      'date_fin':res.date_fin,
       'user_id':res.user_id,
         fonction_id: res.fonction_id,
         type_planing_id: res.type_planing_id,
@@ -134,7 +141,7 @@ export class PlaningComponent   implements OnInit {
     let resut= new Date(date)
     resut.setDate(resut.getDate()+1)
     let currentDate_=this.pipe.transform(resut,'yyyy-MM-dd')
-    this.database.getPlaningHeaders(currentDate_!).subscribe((res)=>{
+     this.database.getPlaningHeaders(currentDate_!).subscribe((res)=>{
       this.rowHeaders=res;
     }
     );
@@ -171,6 +178,7 @@ export class PlaningComponent   implements OnInit {
   }
   onSubmit() {
     let currentDate_=this.pipe.transform(this.currentDate,'yyyy-MM-dd')
+    this.itemForm.value.user_id=this.select_user_id
     console.log(this.itemForm.value)
     this.database.createPlaning(this.itemForm.value).subscribe((res: any) => {
       this.toaster.success("Enregistrement avec success", 'OK');

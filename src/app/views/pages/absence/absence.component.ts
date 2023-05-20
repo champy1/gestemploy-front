@@ -3,19 +3,20 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Avantage } from 'src/app/core/models/avantage';
-import { Departement } from 'src/app/core/models/departement';
+import { Absence } from 'src/app/core/models/absence';
 import { User } from 'src/app/core/models/user';
 import { DatabaseService } from 'src/app/core/service/database.service';
 
 @Component({
-  selector: 'app-avantage',
-  templateUrl: './avantage.component.html',
-  styleUrls: ['./avantage.component.css']
+  selector: 'app-absence',
+  templateUrl: './absence.component.html',
+  styleUrls: ['./absence.component.css']
 })
-export class AvantageComponent implements OnInit{
+export class AbsenceComponent  implements OnInit{
   current_id:number|undefined
-  rows:Avantage[] | undefined;
+  rows:Absence[] | undefined;
+  users:any[]=[];
+  public selected :any = [];
       // @ts-ignore
       itemForm: FormGroup;
       constructor( private modalService: NgbModal,private formBuilder: FormBuilder,
@@ -25,10 +26,13 @@ export class AvantageComponent implements OnInit{
       }
   ngOnInit(): void {
     this.itemForm = this.formBuilder.group({
-      typeAvantage: ["", Validators.required],
+      motif: ["", Validators.required],
+      dateDebut: ["", Validators.required],
+      dateFin: ["", Validators.required],
+      user_id: ["", Validators.required],
       id: [null, Validators.required]
     });
-    this.database.getAvantages().subscribe((res)=>{
+    this.database.getAbsences().subscribe((res)=>{
       this.rows=res;
     },(error)=>{
 
@@ -36,14 +40,18 @@ export class AvantageComponent implements OnInit{
     );
   }
   openLg(content:any) {
-    this.itemForm.reset();
     this.modalService.open(content, { size: 'md' });
-
+    this.database.getUsers().subscribe((res)=>{
+      this.users=res;
+    }
+    );
   }
   openEditLg(content: any,row:any) {
-    this.itemForm.reset();
     this.itemForm=this.formBuilder.group({
-      typeAvantage: row.typeAvantage,
+      motif: row.motif,
+      dateDebut:row.dateDebut,
+      dateFin:row.dateFin,
+      user_id:row.user_id,
       id: row.id
     });
     this.modalService.open(content, { size: 'md' });
@@ -51,10 +59,10 @@ export class AvantageComponent implements OnInit{
   onSubmit() {
 
     console.log(this.itemForm.value)
-    this.database.createAvantage(this.itemForm.value).subscribe((res: any) => {
+    this.database.createAbsence(this.itemForm.value).subscribe((res: any) => {
       this.toaster.success("Enregistrement avec success", 'OK');
      this.modalService.dismissAll();
-     this.database.getAvantages().subscribe((res)=>{
+     this.database.getAbsences().subscribe((res)=>{
       this.rows=res;
     });
     }, err => {
@@ -69,10 +77,10 @@ export class AvantageComponent implements OnInit{
   }
   delete() {
 
-    this.database.deleteAvantage(Number(this.current_id)).subscribe((res: any) => {
+    this.database.deleteAbsence(Number(this.current_id)).subscribe((res: any) => {
       this.toaster.success("Suppression avec success", 'OK');
      this.modalService.dismissAll();
-     this.database.getAvantages().subscribe((res)=>{
+     this.database.getAbsences().subscribe((res)=>{
       this.rows=res;
     })
     }, err => {

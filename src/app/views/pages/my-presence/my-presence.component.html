@@ -1,6 +1,6 @@
 <c-card class="mb-4">
     <c-card-header>
-      <strong>Mes </strong> <small>Presences</small>
+      <strong>Mes </strong> <small>Absences</small>
   
     </c-card-header>
     <c-card-body>
@@ -9,20 +9,23 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">Matricule </th>
-            <th scope="col">Date</th>
+            <th scope="col">Nom complet </th>
+            <th scope="col">Date debut</th>
+            <th scope="col">Date de fin</th>
+          
             
-            <th scope="col">Heure debut</th>
-            <th scope="col">Heure fin</th>
+            <th scope="col">Motif</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let row of rows">
             <th scope="row">{{row.id}}</th>
-           <td>{{row.user_matricule}}</td> 
-           <td>{{row.date_presence}}</td>
+           <td>{{row.user_name}}</td> 
+           <td>{{row.user_name}}</td> 
+           <td>{{row.dateDebut}}</td>
+           <td>{{row.dateFin}}</td>
             
-            <td>{{row.heureDebut}}</td>
-            <td>{{row.heureFin}}</td>
+            <td>{{row.motif}}</td>
          
           </tr>
   

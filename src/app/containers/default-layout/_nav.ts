@@ -27,8 +27,8 @@ export const navItems: IcustomNavData[] = [
     role:"ALL"
   },
   {
-    name: 'Mes presences',
-    url: '/pages/my-presence',
+    name: 'Mes absences',
+    url: '/pages/my-absence',
     iconComponent: { name: 'cil-Tags' },
     role:"ALL"
   },
@@ -66,8 +66,8 @@ export const navItems: IcustomNavData[] = [
     title: true
   },
   {
-    name: 'Fiche presence',
-    url: '/pages/presence',
+    name: 'Plage horaire',
+    url: '/pages/plage-horaire',
     iconComponent: { name: 'cil-Speedometer' },
   },
   {
@@ -83,6 +83,11 @@ export const navItems: IcustomNavData[] = [
   {
     name: 'Planings',
     url: '/pages/planing',
+    iconComponent: { name: 'cil-file' },
+  },
+  {
+    name: 'Planings Mois',
+    url: '/pages/planing-month',
     iconComponent: { name: 'cil-file' },
   },
   {
@@ -104,11 +109,11 @@ export const navItems: IcustomNavData[] = [
     url: '/pages/departements',
     iconComponent: { name: 'cil-Task' },
   },
-  {
-    name: 'Type planing',
-    url: '/pages/type-planing',
+   {
+    name: 'Absences',
+    url: '/pages/absence',
     iconComponent: { name: 'cil-Bookmark' },
-  },
+  }, 
   {
     name: 'Fonctions',
     url: '/pages/fonctions',
@@ -145,8 +150,8 @@ export const navItemsComptable: IcustomNavData[] = [
     role:"ALL"
   },
   {
-    name: 'Mes presences',
-    url: '/pages/my-presence',
+    name: 'Mes absences',
+    url: '/pages/my-absence',
     iconComponent: { name: 'cil-Tags' },
     role:"ALL"
   },
@@ -174,8 +179,8 @@ export const navItemsComptable: IcustomNavData[] = [
     title: true
   },
   {
-    name: 'Fiche presence',
-    url: '/pages/presence',
+    name: 'Absence',
+    url: '/pages/absence',
     iconComponent: { name: 'cil-Speedometer' },
   },
   {
@@ -187,6 +192,11 @@ export const navItemsComptable: IcustomNavData[] = [
   {
     name: 'Planings',
     url: '/pages/planing',
+    iconComponent: { name: 'cil-file' },
+  },
+  {
+    name: 'Planings Mois',
+    url: '/pages/planing-month',
     iconComponent: { name: 'cil-file' },
   },
 ];
@@ -215,8 +225,8 @@ export const navItemsUSER: IcustomNavData[] = [
     role:"ALL"
   },
   {
-    name: 'Mes presences',
-    url: '/pages/my-presence',
+    name: 'Mes absences',
+    url: '/pages/my-absence',
     iconComponent: { name: 'cil-Tags' },
     role:"ALL"
   },

@@ -89,7 +89,8 @@ export class AuthService {
       etatCivil: undefined,
       compteIban: undefined,
       departement_id: undefined,
-      departement: undefined
+      departement: undefined,
+      dayworks: undefined
     };
     this.userData = userData;
     this.currentUserSubject!.next(this.userData);

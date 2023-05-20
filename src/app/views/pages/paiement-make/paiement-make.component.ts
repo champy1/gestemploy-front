@@ -44,7 +44,9 @@ export class PaiementMakeComponent  implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser')!);
     let id=Number(this.route.snapshot.paramMap.get('month'))
     let mon=new Date().getMonth;
-    this.selectmonth=new Date().getMonth();
+    let year=new Date().getFullYear();
+    console.log(year)
+    this.selectmonth=id;
     this.database.getPaiementbyMonth(id).subscribe((res)=>{
       this.rows=res;
     },(error)=>{
@@ -55,7 +57,8 @@ export class PaiementMakeComponent  implements OnInit {
   calculSalaire(){
     this.rows=[]
     let id=Number(this.route.snapshot.paramMap.get('month'))
-    this.database.getCalculVariablebyMonth(id,2023,1,this.currentUser.id).subscribe((res)=>{
+    let year=new Date().getFullYear();
+    this.database.getCalculVariablebyMonth(id,year,1,this.currentUser.id).subscribe((res)=>{
       this.rows=res;
     },(error)=>{
 
@@ -64,8 +67,9 @@ export class PaiementMakeComponent  implements OnInit {
   }
   calculHeureSup(){
     this.rows=[]
+    let year=new Date().getFullYear();
     let id=Number(this.route.snapshot.paramMap.get('month'))
-    this.database.getCalculVariablebyMonth(id,2023,2,this.currentUser.id).subscribe((res)=>{
+    this.database.getCalculVariablebyMonth(id,year,2,this.currentUser.id).subscribe((res)=>{
       this.rows=res;
     },(error)=>{
 
@@ -75,14 +79,16 @@ export class PaiementMakeComponent  implements OnInit {
   generateBulletin(){
     this.rows=[]
     let id=Number(this.route.snapshot.paramMap.get('month'))
-    this.database.getCalculVariablebyMonth(id,2023,10,this.currentUser.id).subscribe((res)=>{
+    let year=new Date().getFullYear();
+    this.database.getCalculVariablebyMonth(id,year,10,this.currentUser.id).subscribe((res)=>{
       this.rows=res;
     });
   }
   sendMail(){
     this.rows=[]
     let id=Number(this.route.snapshot.paramMap.get('month'))
-    this.database.getCalculVariablebyMonth(id,2023,11,this.currentUser.id).subscribe((res)=>{
+    let year=new Date().getFullYear();
+    this.database.getCalculVariablebyMonth(id,year,11,this.currentUser.id).subscribe((res)=>{
       this.rows=res;
     },(error)=>{
 

@@ -51,26 +51,27 @@
     </div>
     <div class="modal-body">
         <form cForm  [formGroup]="itemForm" ngNativeValidate>
+          <div [cFormFloating]="true" class="mb-3">
+            <select formControlName="user_id" aria-label="Floating label select example" cSelect id="floatingSelect">
+    
+                <option *ngFor="let user of users" value="{{user.id}}"> {{user.firstname}} </option>
+                      
+                         </select>
+            <label cLabel for="floatingInput">Employés</label>
+          </div>
             <div [cFormFloating]="true" class="mb-3">
-              <input cFormControl id="floatingInput" placeholder="date" type="date" formControlName="dateHeureSuppl" />
+              <input (change)="changeDate()" cFormControl id="floatingInput" placeholder="date" type="date" formControlName="dateHeureSuppl" />
               <label cLabel for="floatingInput">Date du jour</label>
             </div>
             <div [cFormFloating]="true" class="mb-3">
-                <input cFormControl id="floatingInput" placeholder="heuredebut" type="time" formControlName="heureDebut" />
+                <input readOnly cFormControl id="floatingInput" placeholder="heuredebut" type="time" formControlName="heureDebut" />
                 <label cLabel for="floatingInput">Heure debut</label>
               </div>
               <div [cFormFloating]="true" class="mb-3">
                 <input cFormControl id="floatingInput" placeholder="heurefin" type="time" formControlName="heureFin" />
                 <label cLabel for="floatingInput">Heure fin</label>
               </div>
-              <div [cFormFloating]="true" class="mb-3">
-                <select formControlName="user_id" aria-label="Floating label select example" cSelect id="floatingSelect">
-        
-                    <option *ngFor="let user of users" value="{{user.id}}"> {{user.firstname}} </option>
-                          
-                             </select>
-                <label cLabel for="floatingInput">Employés</label>
-              </div>
+             
             </form>
         </div>
       <div class="modal-footer">

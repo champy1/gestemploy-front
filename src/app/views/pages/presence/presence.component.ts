@@ -68,5 +68,6 @@ export class PresenceComponent implements OnInit {
       this.rows=res;
     })}
     );
+    
   }
 }

@@ -15,6 +15,7 @@ export class User {
   genre: string | undefined;
   etatCivil: string | undefined;
   compteIban: string | undefined;
+  dayworks: number[]|undefined; 
   //role;
   departement_id: number | undefined;
   departement: string | undefined;

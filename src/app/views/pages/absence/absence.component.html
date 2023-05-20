@@ -1,0 +1,176 @@
+<c-card class="mb-4">
+    <c-card-header>
+      <strong>Listes </strong> <small>Absences</small>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary btn-md" (click)="openLg(content)"><i
+              class="icofont icofont-plus"></i>Ajouter une absence
+          </button>
+        </div>
+      </div>
+  
+    </c-card-header>
+    <c-card-body>
+      <ngx-datatable #table class="bootstrap" [rows]="rows" [columnMode]="'force'" [scrollbarH]=true [headerHeight]="50"
+      [footerHeight]="50" [rowHeight]="'auto'" [limit]="4" [selected]="selected" [selectAllRowsOnPage]="false"
+     >
+    
+      <ngx-datatable-column name="Nom" prop="user_name">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row.user_name}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Date de debut" prop="dateDebut">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row.dateDebut}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Date de fin" prop="dateFin">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row.dateFin}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Motif">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          {{row.motif}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [sortable]="false" cellClass="allow-overflow" [width]="40">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+          <div class="btn-group">
+            <button class="btn btn-sm btn-outline-dark"
+                    (click)="openEditLg(contentEdit,row)">Editer</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="openDelete(contentDelete,row)">Supprimer</button>
+           </div>
+
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+     <!-- <table cTable>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom </th>
+            <th scope="col">Date </th>
+            <th scope="col">Motif </th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of rows">
+            <th scope="row">{{row.id}}</th>
+            <td>{{row.user_name}}</td>
+            <td>{{row.dateDebut}}</td>
+            <td>{{row.motif}}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-sm btn-outline-dark"
+                    (click)="openEditLg(contentEdit,row)">Editer</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="openDelete(contentDelete,row)">Supprimer</button>
+            </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>-->
+    </c-card-body>
+  </c-card>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Ajouter une absence</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form cForm [formGroup]="itemForm" ngNativeValidate>
+        <div  class="mb-3">
+     <!--      <select formControlName="user_id" aria-label="Floating label select example" cSelect id="floatingSelect">
+        
+      <option *ngFor="let user of users" value="{{user.id}}"> {{user.firstname}} {{user.lastname}}</option>
+       
+          </select> -->
+          <label cLabel for="floatingSelect">Utilisateurs</label>
+          <ngx-select formControlName="user_id"
+          [allowClear]="true"
+          optionValueField="id" optionTextField="firstname"
+          
+          [items]="users"
+          placeholder="No user selected">
+</ngx-select>
+    
+        </div>
+        <div class="row p-2">
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="Date" type="date" formControlName="dateDebut" />
+            <label cLabel for="floatingInput">Date debut</label>
+          </div>
+        </div>
+        <div class="row p-2">
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="Date" type="date" formControlName="dateFin" />
+            <label cLabel for="floatingInput">Date fin</label>
+          </div>
+        </div>
+        <div class="row p-2">
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="motif" type="text" formControlName="motif" />
+            <label cLabel for="floatingInput">Motif</label>
+          </div>
+
+        </div>
+  
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Enregister</button>
+    </div>
+  </ng-template>
+  <ng-template #contentEdit let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Modifier une absence</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form cForm [formGroup]="itemForm" ngNativeValidate>
+        <div class="row p-2">
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="Date" type="date" formControlName="dateAbsence" />
+            <label cLabel for="floatingInput">Date</label>
+          </div>
+
+        </div>
+        <div class="row p-2">
+          <div [cFormFloating]="true" class="mb-3">
+            <input cFormControl id="floatingInput" placeholder="Motif" type="text" formControlName="motif" />
+            <label cLabel for="floatingInput">Motif</label>
+          </div>
+
+        </div>
+  
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="onSubmit()">Modifier</button>
+    </div>
+  </ng-template>
+  <ng-template #contentDelete let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Supprimer une absence</h4>
+      <button type="button" class="btn close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+     <p>Voulez vous vraiment supprimer cet absence?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+      <button class="btn btn-secondary mr-1  pull-right" type="button" (click)="delete()">Confimer</button>
+    </div>
+  </ng-template>
